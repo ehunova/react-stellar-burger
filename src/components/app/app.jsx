@@ -1,17 +1,25 @@
+import React from "react";
 import styles from "./app.module.css";
-import { data } from "../../utils/data";
+import AppHeader from "../app-header/app-header";
+import Main from "../main/main";
+import Modal from "../modal/modal";
+import IngredientInfo from "../ingredient-info/ingredient-info";
 
 function App() {
-  return (
-    <div className={styles.app}>
-      <pre style={{
-      	margin: "auto",
-      	fontSize: "1.5rem"
-      }}>
-      	Hello :)
-      </pre>
-    </div>
-  );
+    function openModal() {
+
+    }
+
+    function closeModal() {
+
+    }
+
+    return (
+        <div className={styles.app}>
+            <AppHeader/>
+            <Main/>
+        </div>
+    );
 }
 
 export default App;

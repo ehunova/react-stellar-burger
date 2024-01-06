@@ -10,12 +10,17 @@ export default function AppHeader() {
             <nav className={styles.container}>
                 <div className={styles.navigations}>
                     <NavigationLink link="#">
-                        <BurgerIcon type="secondary"/>
-                        <span className="ml-2">Конструктор</span>
+                        <>
+                            <BurgerIcon type="secondary"/>
+                            <span className="ml-2">Конструктор</span>
+                        </>
                     </NavigationLink>
                     <NavigationLink link="#">
-                        <ListIcon type="secondary"/>
-                        <span className="ml-2">Лента заказов</span>
+                        <>
+                            <ListIcon type="secondary"/>
+                            <span className="ml-2">Лента заказов</span>
+                        </>
+
                     </NavigationLink>
                 </div>
                 <div>
@@ -25,8 +30,10 @@ export default function AppHeader() {
                 </div>
                 <div>
                     <NavigationLink link="#">
-                        <ProfileIcon type="secondary"/>
-                        <span className="ml-2">Личный кабинет</span>
+                        <>
+                            <ProfileIcon type="secondary"/>
+                            <span className="ml-2">Личный кабинет</span>
+                        </>
                     </NavigationLink>
                 </div>
             </nav>

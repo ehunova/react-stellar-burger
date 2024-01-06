@@ -1,6 +1,7 @@
 import clsx from "clsx";
 import styles from "./navigation-link.module.css";
 import React from "react";
+import PropTypes from "prop-types";
 
 export default function NavigationLink(props) {
     return (
@@ -9,3 +10,8 @@ export default function NavigationLink(props) {
         </a>
     )
 }
+
+NavigationLink.propTypes = {
+    link: PropTypes.string,
+    children: PropTypes.element.isRequired
+};

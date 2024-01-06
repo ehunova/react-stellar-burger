@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./ingredient-info.module.css";
 import clsx from "clsx";
+import PropTypes from "prop-types";
 
 export default function IngredientInfo({ingredient}) {
     return (
@@ -28,3 +29,7 @@ export default function IngredientInfo({ingredient}) {
         </div>
     )
 }
+
+IngredientInfo.propTypes = {
+    ingredient: PropTypes.object
+};

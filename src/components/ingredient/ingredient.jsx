@@ -4,6 +4,8 @@ import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-com
 import clsx from "clsx";
 import Modal from "../modal/modal";
 import IngredientInfo from "../ingredient-info/ingredient-info";
+import PropTypes from "prop-types";
+import useEscapeHandler from "../../utils/use-escape-handler";
 
 export default function Ingredient({ingredient}) {
     const [modalState, setModalState] = React.useState(false);
@@ -15,6 +17,8 @@ export default function Ingredient({ingredient}) {
     function closeModal() {
         setModalState(false);
     }
+
+    useEscapeHandler(closeModal);
 
     const modal = (<Modal title={"Детали ингредиента"} onClose={closeModal}>
         <IngredientInfo ingredient={ingredient}/>
@@ -37,3 +41,7 @@ export default function Ingredient({ingredient}) {
         </>
     )
 }
+
+Ingredient.propTypes = {
+    ingredient: PropTypes.object
+};

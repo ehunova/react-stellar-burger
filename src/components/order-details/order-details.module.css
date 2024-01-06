@@ -1,0 +1,25 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box;
+    color: #F2F2F3;
+}
+
+.orderNum {
+    text-shadow:
+            0 4px 32px rgba(51, 51, 255, 0.50),
+            0 0 8px rgba(51, 51, 255, 0.25),
+            0 0 16px rgba(51, 51, 255, 0.25);
+}
+
+.iconDone {
+    width: 120px;
+    height: 120px;
+}
+
+.textWait {
+    color: #8585AD;
+}

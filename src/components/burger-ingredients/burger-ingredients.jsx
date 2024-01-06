@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import styles from './burger-ingredients.module.css';
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import clsx from "clsx";
@@ -49,3 +50,7 @@ export default function BurgerIngredients({ingredients}) {
         </div>
     )
 }
+
+BurgerIngredients.propTypes = {
+    ingredient: PropTypes.object
+};

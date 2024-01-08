@@ -6,18 +6,11 @@ import IngredientConstructor from "../ingredient-constructor/ingredient-construc
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
 import PropTypes from "prop-types";
+import useModal from "../../hooks/use-modal";
 
 export default function BurgerConstructor({ingredients}) {
     const [total, setTotal] = React.useState(0);
-    const [modalState, setModalState] = React.useState(false);
-
-    function openModal() {
-        setModalState(true);
-    }
-
-    function closeModal() {
-        setModalState(false);
-    }
+    const {modalState, openModal, closeModal} = useModal();
 
     const modal = (<Modal onClose={closeModal}>
         <OrderDetails id={34536}/>

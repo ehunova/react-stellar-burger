@@ -5,7 +5,7 @@ import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import ReactDOM from "react-dom";
 import clsx from "clsx";
 import PropTypes from "prop-types";
-import useEscapeHandler from "../../utils/use-escape-handler";
+import useEscapeHandler from "../../hooks/use-escape-handler";
 
 const modalRoot = document.getElementById("react-modals");
 

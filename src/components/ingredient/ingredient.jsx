@@ -5,17 +5,10 @@ import clsx from "clsx";
 import Modal from "../modal/modal";
 import IngredientInfo from "../ingredient-info/ingredient-info";
 import PropTypes from "prop-types";
+import useModal from "../../hooks/use-modal";
 
 export default function Ingredient({ingredient}) {
-    const [modalState, setModalState] = React.useState(false);
-
-    function openModal() {
-        setModalState(true);
-    }
-
-    function closeModal() {
-        setModalState(false);
-    }
+    const {modalState, openModal, closeModal} = useModal();
 
     const modal = (<Modal title={"Детали ингредиента"} onClose={closeModal}>
         <IngredientInfo ingredient={ingredient}/>

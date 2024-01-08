@@ -8,8 +8,9 @@ export default function IngredientConstructor({ingredient}) {
         <div className={styles.container}>
             <DragIcon type="primary" />
             <ConstructorElement
-                key={ingredient._id}
-                text={ingredient.name} thumbnail={ingredient.image} price={ingredient.price}
+                text={ingredient.name}
+                thumbnail={ingredient.image}
+                price={ingredient.price}
             />
         </div>
     )

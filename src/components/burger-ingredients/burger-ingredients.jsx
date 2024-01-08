@@ -21,7 +21,9 @@ export default function BurgerIngredients({ingredients}) {
                     {
                         ingredients.map(ingredient => {
                             if (ingredient.type === "bun") {
-                                return <Ingredient key={ingredient._id} ingredient={ingredient}/>
+                                return (
+                                    <Ingredient key={ingredient._id} ingredient={ingredient}/>
+                                )
                             }
                         })
                     }
@@ -31,7 +33,9 @@ export default function BurgerIngredients({ingredients}) {
                     {
                         ingredients.map(ingredient => {
                             if (ingredient.type === "sauce") {
-                                return <Ingredient key={ingredient._id} ingredient={ingredient}/>
+                                return (
+                                    <Ingredient key={ingredient._id} ingredient={ingredient}/>
+                                )
                             }
                         })
                     }
@@ -41,7 +45,9 @@ export default function BurgerIngredients({ingredients}) {
                     {
                         ingredients.map(ingredient => {
                             if (ingredient.type === "main") {
-                                return <Ingredient key={ingredient._id} ingredient={ingredient}/>
+                                return (
+                                    <Ingredient key={ingredient._id} ingredient={ingredient}/>
+                                )
                             }
                         })
                     }

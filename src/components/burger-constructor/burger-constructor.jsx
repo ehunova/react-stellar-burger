@@ -6,7 +6,6 @@ import IngredientConstructor from "../ingredient-constructor/ingredient-construc
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
 import PropTypes from "prop-types";
-import useEscapeHandler from "../../utils/use-escape-handler";
 
 export default function BurgerConstructor({ingredients}) {
     const [total, setTotal] = React.useState(0);
@@ -20,8 +19,6 @@ export default function BurgerConstructor({ingredients}) {
         setModalState(false);
     }
 
-    useEscapeHandler(closeModal);
-
     const modal = (<Modal onClose={closeModal}>
         <OrderDetails id={34536}/>
     </Modal>);
@@ -34,11 +31,13 @@ export default function BurgerConstructor({ingredients}) {
                         {
                             ingredients.map(ingredient => {
                                 if (ingredient.type === "bun" && ingredient.name === "Краторная булка N-200i") {
-                                    return <ConstructorElement
-                                        key={ingredient._id + "top"} type={"top"} isLocked={true}
-                                        text={`${ingredient.name} (верх)`} thumbnail={ingredient.image}
-                                        price={ingredient.price}
-                                    />
+                                    return (
+                                        <ConstructorElement
+                                            key={ingredient._id + "top"} type={"top"} isLocked={true}
+                                            text={`${ingredient.name} (верх)`} thumbnail={ingredient.image}
+                                            price={ingredient.price}
+                                        />
+                                    )
                                 }
                             })
                         }
@@ -47,7 +46,7 @@ export default function BurgerConstructor({ingredients}) {
                         {
                             ingredients.map(ingredient => {
                                 if (ingredient.type !== "bun") {
-                                    return <IngredientConstructor key={ingredient._id} ingredient={ingredient}/>
+                                    return (<IngredientConstructor key={ingredient._id} ingredient={ingredient}/>)
                                 }
                             })
                         }
@@ -56,11 +55,13 @@ export default function BurgerConstructor({ingredients}) {
                         {
                             ingredients.map(ingredient => {
                                 if (ingredient.type === "bun" && ingredient.name === "Краторная булка N-200i") {
-                                    return <ConstructorElement
-                                        key={ingredient._id + "bottom"} type={"bottom"} isLocked={true}
-                                        text={`${ingredient.name} (низ)`} thumbnail={ingredient.image}
-                                        price={ingredient.price}
-                                    />
+                                    return (
+                                        <ConstructorElement
+                                            key={ingredient._id + "bottom"} type={"bottom"} isLocked={true}
+                                            text={`${ingredient.name} (низ)`} thumbnail={ingredient.image}
+                                            price={ingredient.price}
+                                        />
+                                    )
                                 }
                             })
                         }

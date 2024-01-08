@@ -5,25 +5,26 @@ import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import ReactDOM from "react-dom";
 import clsx from "clsx";
 import PropTypes from "prop-types";
+import useEscapeHandler from "../../utils/use-escape-handler";
 
 const modalRoot = document.getElementById("react-modals");
 
 export default function Modal(props) {
+    useEscapeHandler(props.onClose);
+
     return ReactDOM.createPortal(
         (
-            <>
-                <ModalOverlay onClose={props.onClose}>
-                    <div className={clsx(styles.container, "pb-10")}>
-                        <div className={clsx(styles.head, "mt-10 ml-10 mr-10")}>
-                            <h2 className="text text_type_main-large">{props.title}</h2>
-                            <button className={styles.button} onClick={props.onClose}>
-                                <CloseIcon type="primary"/>
-                            </button>
-                        </div>
-                        {props.children}
+            <ModalOverlay onClose={props.onClose}>
+                <div className={clsx(styles.container, "pb-10")} onClick={(event) => event.stopPropagation()}>
+                    <div className={clsx(styles.head, "mt-10 ml-10 mr-10")}>
+                        <h2 className="text text_type_main-large">{props.title}</h2>
+                        <button className={styles.button} onClick={props.onClose}>
+                            <CloseIcon type="primary"/>
+                        </button>
                     </div>
-                </ModalOverlay>
-            </>
+                    {props.children}
+                </div>
+            </ModalOverlay>
         ),
         modalRoot
     )

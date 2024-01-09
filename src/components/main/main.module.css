@@ -1,0 +1,17 @@
+.container {
+    display: flex;
+    margin: 0 auto;
+    max-width: 1280px;
+    max-height: 912px;
+    overflow-y: hidden;
+    width: 100%;
+    align-items: center;
+}
+
+.ingredients {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 88px); /*88px - высота header*/
+}
+
+

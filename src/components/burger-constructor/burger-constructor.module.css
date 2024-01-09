@@ -1,0 +1,50 @@
+.section {
+    max-width: 600px;
+    width: 100%;
+}
+
+.container {
+    height: 656px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.bun {
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    gap: 16px;
+}
+
+.main::-webkit-scrollbar {
+    width: 8px;
+}
+.main::-webkit-scrollbar-track {
+    background: #2F2F37;
+}
+.main::-webkit-scrollbar-thumb {
+    background: #8585AD;
+}
+
+.createOrder {
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.totalPrice {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.totalPrice svg {
+    width: 36px;
+    height: 36px;
+}

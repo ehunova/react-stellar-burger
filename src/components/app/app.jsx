@@ -2,9 +2,11 @@ import React from "react";
 import styles from "./app.module.css";
 import AppHeader from "../app-header/app-header";
 import Main from "../main/main";
+import {useDispatch, useSelector} from "react-redux";
+import {GET_INGREDIENTS} from "../../services/constants/constants";
 
 function App() {
-    const [ingredients, setIngredients] = React.useState([]);
+    const dispatch = useDispatch();
 
     const getIngredientsList = () => {
         fetch(`https://norma.nomoreparties.space/api/ingredients`)
@@ -14,7 +16,7 @@ function App() {
                 }
                 return Promise.reject(`Ошибка: ${response.status}`);
             })
-            .then(data => setIngredients(data.data))
+            .then(data => dispatch({type: GET_INGREDIENTS, payload: data.data}))
             .catch(console.error);
     }
 
@@ -25,7 +27,7 @@ function App() {
     return (
         <div className={styles.app}>
             <AppHeader/>
-            <Main ingredients={ingredients}/>
+            <Main/>
         </div>
     );
 }

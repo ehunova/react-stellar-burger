@@ -4,8 +4,10 @@ import styles from './burger-ingredients.module.css';
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import clsx from "clsx";
 import Ingredient from "../ingredient/ingredient";
+import {useSelector} from "react-redux";
 
-export default function BurgerIngredients({ingredients}) {
+export default function BurgerIngredients() {
+    const ingredients = useSelector(store => store.ingredientsList);
     const [current, setCurrent] = React.useState("bun");
 
     return (
@@ -56,7 +58,3 @@ export default function BurgerIngredients({ingredients}) {
         </div>
     )
 }
-
-BurgerIngredients.propTypes = {
-    ingredient: PropTypes.object
-};

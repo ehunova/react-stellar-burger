@@ -7,8 +7,11 @@ import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
 import PropTypes from "prop-types";
 import useModal from "../../hooks/use-modal";
+import {useSelector} from "react-redux";
 
-export default function BurgerConstructor({ingredients}) {
+export default function BurgerConstructor() {
+    const ingredients = useSelector(store => store.ingredientsList);
+
     const [total, setTotal] = React.useState(0);
     const {modalState, openModal, closeModal} = useModal();
 
@@ -77,7 +80,3 @@ export default function BurgerConstructor({ingredients}) {
         </>
     )
 }
-
-BurgerConstructor.propTypes = {
-    ingredients: PropTypes.array
-};

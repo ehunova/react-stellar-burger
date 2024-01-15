@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./app.module.css";
 import AppHeader from "../app-header/app-header";
 import Main from "../main/main";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {GET_INGREDIENTS} from "../../services/constants/constants";
 
 function App() {

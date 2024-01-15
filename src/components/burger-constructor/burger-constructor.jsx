@@ -5,7 +5,6 @@ import clsx from "clsx";
 import IngredientConstructor from "../ingredient-constructor/ingredient-constructor";
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
-import PropTypes from "prop-types";
 import useModal from "../../hooks/use-modal";
 import {useSelector} from "react-redux";
 

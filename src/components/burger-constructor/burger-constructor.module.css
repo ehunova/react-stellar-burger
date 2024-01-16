@@ -10,6 +10,14 @@
     gap: 16px;
 }
 
+.dragging {
+    border-radius: 30px;
+    box-shadow:
+        0 4px 32px rgba(51, 51, 255, 0.15),
+        0 0 8px rgba(51, 51, 255, 0.15),
+        0 0 16px rgba(51, 51, 255, 0.15);
+}
+
 .bun {
 }
 

@@ -5,12 +5,20 @@ import clsx from "clsx";
 import PropTypes from "prop-types";
 import {useDispatch} from "react-redux";
 import {ADD_VIEWING_INGREDIENT} from "../../services/constants/constants";
+import {useDrag} from "react-dnd";
 
 export default function Ingredient({ingredient}) {
     const dispatch = useDispatch();
+    const [{isDrag}, dragRef] = useDrag({
+        type: "ingredient",
+        item: ingredient,
+        collect: (monitor) => ({
+            isDrag: monitor.isDragging(),
+        })
+    })
 
     return (
-        <div className={styles.container} onClick={() => dispatch({type: ADD_VIEWING_INGREDIENT, payload: ingredient})}>
+        <div className={clsx(styles.container, isDrag ? styles.dragging : '')} onClick={() => dispatch({type: ADD_VIEWING_INGREDIENT, payload: ingredient})} ref={dragRef}>
             <div className={styles.counter}>
                 <Counter count={1} size="default"/>
             </div>

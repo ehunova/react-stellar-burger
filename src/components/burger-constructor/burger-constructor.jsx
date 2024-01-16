@@ -6,13 +6,30 @@ import IngredientConstructor from "../ingredient-constructor/ingredient-construc
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
 import useModal from "../../hooks/use-modal";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {useDrop} from "react-dnd";
+import {ADD_VIEWING_INGREDIENT, REMOVE_FILLING_ELEMENT, SET_BUN, SET_FILLING} from "../../services/constants/constants";
 
 export default function BurgerConstructor() {
-    const ingredients = useSelector(store => store.ingredientsList);
+    const burgerConstructor = useSelector(store => store.burgerConstructor);
+    const dispatch = useDispatch();
 
     const [total, setTotal] = React.useState(0);
     const {modalState, openModal, closeModal} = useModal();
+
+    const [{isDrag}, dropRef] = useDrop({
+        accept: "ingredient",
+        drop(ingredient) {
+            if (ingredient.type === "bun") {
+                dispatch({type: SET_BUN, payload: ingredient})
+            } else {
+                dispatch({type: SET_FILLING, payload: [...burgerConstructor.filling, ingredient]})
+            }
+        },
+        collect: (monitor) => ({
+            isDrag: monitor.isOver(),
+        })
+    })
 
     const modal = (<Modal onClose={closeModal}>
         <OrderDetails id={34536}/>
@@ -21,44 +38,38 @@ export default function BurgerConstructor() {
     return (
         <>
             <section className={clsx(styles.section, "mt-25 ml-4")}>
-                <div className={styles.container}>
+                <div className={clsx(styles.container, isDrag ? styles.dragging : '')} ref={dropRef}>
                     <div className={"ml-8"}>
-                        {
-                            ingredients.map(ingredient => {
-                                if (ingredient.type === "bun" && ingredient.name === "Краторная булка N-200i") {
-                                    return (
-                                        <ConstructorElement
-                                            key={ingredient._id + "top"} type={"top"} isLocked={true}
-                                            text={`${ingredient.name} (верх)`} thumbnail={ingredient.image}
-                                            price={ingredient.price}
-                                        />
-                                    )
-                                }
-                            })
+                        {burgerConstructor.bun &&
+                            <ConstructorElement
+                                type={"top"} isLocked={true}
+                                text={`${burgerConstructor.bun.name} (верх)`} thumbnail={burgerConstructor.bun.image}
+                                price={burgerConstructor.bun.price}
+                            />
                         }
                     </div>
                     <div className={styles.main}>
                         {
-                            ingredients.map(ingredient => {
-                                if (ingredient.type !== "bun") {
-                                    return (<IngredientConstructor key={ingredient._id} ingredient={ingredient}/>)
-                                }
+                            burgerConstructor.filling.map((ingredient, index) => {
+                                return (<IngredientConstructor
+                                    key={ingredient._id}
+                                    ingredient={ingredient}
+                                    handleRemove={
+                                        () => dispatch({
+                                            type: REMOVE_FILLING_ELEMENT,
+                                            payload: index,
+                                        })}
+                                />)
                             })
                         }
                     </div>
                     <div className={"ml-8"}>
-                        {
-                            ingredients.map(ingredient => {
-                                if (ingredient.type === "bun" && ingredient.name === "Краторная булка N-200i") {
-                                    return (
-                                        <ConstructorElement
-                                            key={ingredient._id + "bottom"} type={"bottom"} isLocked={true}
-                                            text={`${ingredient.name} (низ)`} thumbnail={ingredient.image}
-                                            price={ingredient.price}
-                                        />
-                                    )
-                                }
-                            })
+                        {burgerConstructor.bun &&
+                            <ConstructorElement
+                                type={"bottom"} isLocked={true}
+                                text={`${burgerConstructor.bun.name} (низ)`} thumbnail={burgerConstructor.bun.image}
+                                price={burgerConstructor.bun.price}
+                            />
                         }
                     </div>
                 </div>

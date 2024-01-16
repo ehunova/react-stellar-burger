@@ -14,9 +14,7 @@ export const burgerConstructorReducer = (state = burgerConstructorState, action)
             return {...state, filling: action.payload}
         }
         case REMOVE_FILLING_ELEMENT: {
-            state.filling.splice(action.payload, 1)
-
-            return {...state, filling: state.filling}
+            return {...state, filling: state.filling.filter((ingredient, index) => index !== action.payload)}
         }
         default: {
             return state;

@@ -8,13 +8,16 @@ import OrderDetails from "../order-details/order-details";
 import useModal from "../../hooks/use-modal";
 import {useDispatch, useSelector} from "react-redux";
 import {useDrop} from "react-dnd";
-import {ADD_VIEWING_INGREDIENT, REMOVE_FILLING_ELEMENT, SET_BUN, SET_FILLING} from "../../services/constants/constants";
+import {REMOVE_FILLING_ELEMENT, SET_BUN, SET_FILLING} from "../../services/constants/constants";
 
 export default function BurgerConstructor() {
     const burgerConstructor = useSelector(store => store.burgerConstructor);
     const dispatch = useDispatch();
 
-    const [total, setTotal] = React.useState(0);
+    const total =
+        (burgerConstructor.bun !== null ? burgerConstructor.bun.price * 2 : 0) + burgerConstructor.filling.reduce(
+            (sum, ingredient) => sum + ingredient.price, 0);
+
     const {modalState, openModal, closeModal} = useModal();
 
     const [{isDrag}, dropRef] = useDrop({

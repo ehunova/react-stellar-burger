@@ -8,7 +8,8 @@ import OrderDetails from "../order-details/order-details";
 import useModal from "../../hooks/use-modal";
 import {useDispatch, useSelector} from "react-redux";
 import {useDrop} from "react-dnd";
-import {REMOVE_FILLING_ELEMENT, SET_BUN, SET_FILLING} from "../../services/constants/constants";
+import {ADD_FILLING, REMOVE_FILLING_ELEMENT, SET_BUN} from "../../services/constants/constants";
+import { v4 as uuid } from 'uuid';
 
 export default function BurgerConstructor() {
     const burgerConstructor = useSelector(store => store.burgerConstructor);
@@ -20,17 +21,22 @@ export default function BurgerConstructor() {
 
     const {modalState, openModal, closeModal} = useModal();
 
-    const [{isDrag}, dropRef] = useDrop({
+    const [{isDropIngredient}, dropRefIngredient] = useDrop({
         accept: "ingredient",
         drop(ingredient) {
             if (ingredient.type === "bun") {
-                dispatch({type: SET_BUN, payload: ingredient})
+                dispatch({type: SET_BUN, payload: ingredient});
             } else {
-                dispatch({type: SET_FILLING, payload: [...burgerConstructor.filling, ingredient]})
+                dispatch({
+                    type: ADD_FILLING, payload: {
+                        ...ingredient,
+                        uuid: uuid(),
+                    }
+                });
             }
         },
         collect: (monitor) => ({
-            isDrag: monitor.isOver(),
+            isDropIngredient: monitor.isOver(),
         })
     })
 
@@ -41,7 +47,8 @@ export default function BurgerConstructor() {
     return (
         <>
             <section className={clsx(styles.section, "mt-25 ml-4")}>
-                <div className={clsx(styles.container, isDrag ? styles.dragging : '')} ref={dropRef}>
+                <div className={clsx(styles.container, isDropIngredient ? styles.dragging : '')}
+                     ref={dropRefIngredient}>
                     <div className={"ml-8"}>
                         {burgerConstructor.bun &&
                             <ConstructorElement
@@ -55,13 +62,14 @@ export default function BurgerConstructor() {
                         {
                             burgerConstructor.filling.map((ingredient, index) => {
                                 return (<IngredientConstructor
-                                    key={ingredient._id}
+                                    key={ingredient.uuid}
                                     ingredient={ingredient}
                                     handleRemove={
                                         () => dispatch({
                                             type: REMOVE_FILLING_ELEMENT,
                                             payload: index,
                                         })}
+                                    index={index}
                                 />)
                             })
                         }

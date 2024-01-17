@@ -3,12 +3,27 @@ import styles from "./ingredient.module.css";
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import clsx from "clsx";
 import PropTypes from "prop-types";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {ADD_VIEWING_INGREDIENT} from "../../services/constants/constants";
 import {useDrag} from "react-dnd";
 
 export default function Ingredient({ingredient}) {
+    const burgerConstructor = useSelector(store => store.burgerConstructor);
     const dispatch = useDispatch();
+
+    const calculateCount = () => {
+        if (ingredient.type !== 'bun') {
+            return burgerConstructor.filling.filter(element => element._id === ingredient._id).length;
+        } else {
+            if(burgerConstructor.bun !== null && ingredient._id === burgerConstructor.bun._id) {
+                return 2;
+            }
+        }
+        return 0
+    }
+
+    const count = calculateCount();
+
     const [{isDrag}, dragRef] = useDrag({
         type: "ingredient",
         item: ingredient,
@@ -20,7 +35,9 @@ export default function Ingredient({ingredient}) {
     return (
         <div className={clsx(styles.container, isDrag ? styles.dragging : '')} onClick={() => dispatch({type: ADD_VIEWING_INGREDIENT, payload: ingredient})} ref={dragRef}>
             <div className={styles.counter}>
-                <Counter count={1} size="default"/>
+                {   count !== 0 &&
+                    <Counter count={count} size="default"/>
+                }
             </div>
             <img src={ingredient.image} alt={ingredient.name}/>
             <div className={clsx(styles.priceContainer, "mt-1 mb-1")}>

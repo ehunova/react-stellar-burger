@@ -1,13 +1,11 @@
-import {SET_ORDER_NUMBER} from "../constants/constants";
+import {SET_ORDER} from "../constants/constants";
 
-const orderNumber = {
-    number: null,
-};
+const order = {};
 
-export const orderNumberReducer = (state = orderNumber, action) => {
+export const orderReducer = (state = order, action) => {
     switch (action.type) {
-        case SET_ORDER_NUMBER: {
-            return {...state, number: action.payload}
+        case SET_ORDER: {
+            return action.payload
         }
         default: {
             return state;

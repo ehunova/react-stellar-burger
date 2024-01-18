@@ -13,13 +13,13 @@ import {
     CLEAR_CONSTRUCTOR,
     REMOVE_FILLING_ELEMENT,
     SET_BUN,
-    SET_ORDER_NUMBER
+    SET_ORDER
 } from "../../services/constants/constants";
 import { v4 as uuid } from 'uuid';
 
 export default function BurgerConstructor() {
     const burgerConstructor = useSelector(store => store.burgerConstructor);
-    const orderNumber = useSelector(store => store.orderNumber);
+    const order = useSelector(store => store.order);
     const dispatch = useDispatch();
 
     const total = useMemo(() =>
@@ -87,7 +87,7 @@ export default function BurgerConstructor() {
                 return Promise.reject(`Ошибка: ${response.status}`);
             })
             .then(data => {
-                dispatch({type: SET_ORDER_NUMBER, payload: data.order.number});
+                dispatch({type: SET_ORDER, payload: data.order});
                 openModal();
                 dispatch({type: CLEAR_CONSTRUCTOR});
             })
@@ -95,7 +95,7 @@ export default function BurgerConstructor() {
     }
 
     const modal = (<Modal onClose={closeModal}>
-        <OrderDetails orderNumber={orderNumber.number}/>
+        <OrderDetails orderNumber={order.number}/>
     </Modal>);
 
     return (

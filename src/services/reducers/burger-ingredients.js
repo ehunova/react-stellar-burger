@@ -1,4 +1,10 @@
-import {REMOVE_FILLING_ELEMENT, SET_BUN, ADD_FILLING, MOVE_FILLING_ELEMENT} from "../constants/constants";
+import {
+    REMOVE_FILLING_ELEMENT,
+    SET_BUN,
+    ADD_FILLING,
+    MOVE_FILLING_ELEMENT,
+    CLEAR_CONSTRUCTOR
+} from "../constants/constants";
 
 const burgerConstructorState = {
     bun: null,
@@ -23,6 +29,9 @@ export const burgerConstructorReducer = (state = burgerConstructorState, action)
             state.filling.splice(indexFrom, 1);
             state.filling.splice(indexTo, 0, ingredient);
             return {...state, filling: state.filling}
+        }
+        case CLEAR_CONSTRUCTOR: {
+            return burgerConstructorState;
         }
         default: {
             return state;

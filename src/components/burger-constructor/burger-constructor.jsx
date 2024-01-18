@@ -8,7 +8,13 @@ import OrderDetails from "../order-details/order-details";
 import useModal from "../../hooks/use-modal";
 import {useDispatch, useSelector} from "react-redux";
 import {useDrop} from "react-dnd";
-import {ADD_FILLING, REMOVE_FILLING_ELEMENT, SET_BUN, SET_ORDER_NUMBER} from "../../services/constants/constants";
+import {
+    ADD_FILLING,
+    CLEAR_CONSTRUCTOR,
+    REMOVE_FILLING_ELEMENT,
+    SET_BUN,
+    SET_ORDER_NUMBER
+} from "../../services/constants/constants";
 import { v4 as uuid } from 'uuid';
 
 export default function BurgerConstructor() {
@@ -45,7 +51,7 @@ export default function BurgerConstructor() {
     const ingredientIdList = () => {
         const list = [];
 
-        if(burgerConstructor.bun !== null) {
+        if (burgerConstructor.bun !== null) {
             list.push(burgerConstructor.bun._id)
         }
 
@@ -53,10 +59,18 @@ export default function BurgerConstructor() {
             list.push(ingredient._id);
         })
 
+        if (burgerConstructor.bun !== null) {
+            list.push(burgerConstructor.bun._id)
+        }
+
         return list;
     }
 
-    const getOrderNumber = () => {
+    const createOrder = () => {
+        if (burgerConstructor.bun == null) {
+            return;
+        }
+
         fetch("https://norma.nomoreparties.space/api/orders", {
             method: "POST",
             headers: {
@@ -75,6 +89,7 @@ export default function BurgerConstructor() {
             .then(data => {
                 dispatch({type: SET_ORDER_NUMBER, payload: data.order.number});
                 openModal();
+                dispatch({type: CLEAR_CONSTRUCTOR});
             })
             .catch(console.error);
     }
@@ -130,7 +145,7 @@ export default function BurgerConstructor() {
                         <CurrencyIcon type="primary"/>
                     </div>
                     <div>
-                        <Button htmlType="button" type="primary" size="medium" onClick={getOrderNumber}>
+                        <Button htmlType="button" type="primary" size="medium" onClick={createOrder}>
                             Оформить заказ
                         </Button>
                     </div>

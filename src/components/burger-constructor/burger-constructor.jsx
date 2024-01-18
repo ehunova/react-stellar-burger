@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useMemo} from "react";
 import {Button, ConstructorElement, CurrencyIcon,} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burger-constructor.module.css";
 import clsx from "clsx";
@@ -8,16 +8,18 @@ import OrderDetails from "../order-details/order-details";
 import useModal from "../../hooks/use-modal";
 import {useDispatch, useSelector} from "react-redux";
 import {useDrop} from "react-dnd";
-import {ADD_FILLING, REMOVE_FILLING_ELEMENT, SET_BUN} from "../../services/constants/constants";
+import {ADD_FILLING, REMOVE_FILLING_ELEMENT, SET_BUN, SET_ORDER_NUMBER} from "../../services/constants/constants";
 import { v4 as uuid } from 'uuid';
 
 export default function BurgerConstructor() {
     const burgerConstructor = useSelector(store => store.burgerConstructor);
+    const orderNumber = useSelector(store => store.orderNumber);
     const dispatch = useDispatch();
 
-    const total =
+    const total = useMemo(() =>
         (burgerConstructor.bun !== null ? burgerConstructor.bun.price * 2 : 0) + burgerConstructor.filling.reduce(
-            (sum, ingredient) => sum + ingredient.price, 0);
+            (sum, ingredient) => sum + ingredient.price, 0)
+    , [burgerConstructor]);
 
     const {modalState, openModal, closeModal} = useModal();
 
@@ -40,8 +42,45 @@ export default function BurgerConstructor() {
         })
     })
 
+    const ingredientIdList = () => {
+        const list = [];
+
+        if(burgerConstructor.bun !== null) {
+            list.push(burgerConstructor.bun._id)
+        }
+
+        burgerConstructor.filling.filter(ingredient => {
+            list.push(ingredient._id);
+        })
+
+        return list;
+    }
+
+    const getOrderNumber = () => {
+        fetch("https://norma.nomoreparties.space/api/orders", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                "ingredients": ingredientIdList(),
+            })
+        })
+            .then ((response) => {
+                if (response.ok) {
+                    return response.json();
+                }
+                return Promise.reject(`Ошибка: ${response.status}`);
+            })
+            .then(data => {
+                dispatch({type: SET_ORDER_NUMBER, payload: data.order.number});
+                openModal();
+            })
+            .catch(console.error);
+    }
+
     const modal = (<Modal onClose={closeModal}>
-        <OrderDetails id={34536}/>
+        <OrderDetails orderNumber={orderNumber.number}/>
     </Modal>);
 
     return (
@@ -91,7 +130,7 @@ export default function BurgerConstructor() {
                         <CurrencyIcon type="primary"/>
                     </div>
                     <div>
-                        <Button htmlType="button" type="primary" size="medium" onClick={openModal}>
+                        <Button htmlType="button" type="primary" size="medium" onClick={getOrderNumber}>
                             Оформить заказ
                         </Button>
                     </div>

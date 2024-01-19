@@ -1,13 +1,9 @@
 import {baseUrl} from "../services/constants/constants";
+import {checkResponse} from "./utils";
 
 export function getIngredientsList() {
     return fetch(`${baseUrl}/ingredients`)
-        .then(response => {
-            if (response.ok) {
-                return response.json();
-            }
-            return Promise.reject(`Ошибка: ${response.status}`);
-        })
+        .then(checkResponse);
 }
 
 export function createOrder(ingredientIdList) {
@@ -20,10 +16,5 @@ export function createOrder(ingredientIdList) {
             "ingredients": ingredientIdList,
         })
     })
-        .then ((response) => {
-            if (response.ok) {
-                return response.json();
-            }
-            return Promise.reject(`Ошибка: ${response.status}`);
-        })
+        .then(checkResponse);
 }

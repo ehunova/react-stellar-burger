@@ -4,9 +4,9 @@ import {createOrder} from "../../utils/api";
 const initialState = {};
 
 export const fetchOrder = createAsyncThunk(
-    "order/post", async (ingredientIdList) => {
-        return await createOrder(ingredientIdList);
-})
+    "order/post",
+    createOrder
+)
 
 const orderSlice = createSlice({
     name: 'order',
@@ -20,4 +20,3 @@ const orderSlice = createSlice({
 })
 
 export default orderSlice.reducer;
-export const {setOrder} = orderSlice.actions;

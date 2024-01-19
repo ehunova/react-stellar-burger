@@ -1,11 +1,14 @@
-import {compose, createStore} from "redux";
-import {rootReducer} from "./reducers/root-reducer";
+import {configureStore} from "@reduxjs/toolkit";
+import ingredientsReducer from "./reducers/ingredients-slice";
+import burgerConstructorReducer from "./reducers/burger-constructor-slice";
+import viewingIngredientReducer from "./reducers/viewing-ingredient-slice";
+import orderReducer from "./reducers/order-slice";
 
-const composeEnhancers =
-    typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-        ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
-        : compose;
-
-const enhancer = composeEnhancers();
-
-export const store = createStore(rootReducer, enhancer);
+export const store = configureStore({
+    reducer: {
+        ingredientsList: ingredientsReducer,
+        viewingIngredient: viewingIngredientReducer,
+        burgerConstructor: burgerConstructorReducer,
+        order: orderReducer,
+    },
+});

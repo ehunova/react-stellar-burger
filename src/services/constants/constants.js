@@ -1,9 +1,1 @@
-export const GET_INGREDIENTS = 'GET_INGREDIENTS';
-export const ADD_VIEWING_INGREDIENT = 'ADD_VIEWING_INGREDIENT';
-export const REMOVE_VIEWING_INGREDIENT = 'REMOVE_VIEWING_INGREDIENT';
-export const SET_BUN = 'SET_BUN';
-export const ADD_FILLING = 'ADD_FILLING';
-export const REMOVE_FILLING_ELEMENT = 'REMOVE_FILLING_ELEMENT';
-export const MOVE_FILLING_ELEMENT = 'MOVE_FILLING_ELEMENT';
-export const SET_ORDER = 'SET_ORDER';
-export const CLEAR_CONSTRUCTOR = 'CLEAR_CONSTRUCTOR';
+export const baseUrl = `https://norma.nomoreparties.space/api`;

@@ -1,4 +1,4 @@
-import React, {useMemo} from "react";
+import React from "react";
 import {Button, ConstructorElement, CurrencyIcon,} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burger-constructor.module.css";
 import clsx from "clsx";
@@ -8,24 +8,21 @@ import OrderDetails from "../order-details/order-details";
 import useModal from "../../hooks/use-modal";
 import {useDispatch, useSelector} from "react-redux";
 import {useDrop} from "react-dnd";
+import {v4 as uuid} from 'uuid';
+import {burgerConstructorSelector, orderSelector, orderTotalSelector} from "../../services/actions/actionsSelector";
 import {
-    ADD_FILLING,
-    CLEAR_CONSTRUCTOR,
-    REMOVE_FILLING_ELEMENT,
-    SET_BUN,
-    SET_ORDER
-} from "../../services/constants/constants";
-import { v4 as uuid } from 'uuid';
+    addFilling,
+    clearConstructor,
+    removeFillingElement,
+    setBun
+} from "../../services/reducers/burger-constructor-slice";
+import {fetchOrder} from "../../services/reducers/order-slice";
 
 export default function BurgerConstructor() {
-    const burgerConstructor = useSelector(store => store.burgerConstructor);
-    const order = useSelector(store => store.order);
+    const burgerConstructor = useSelector(burgerConstructorSelector);
+    const total = useSelector(orderTotalSelector);
+    const order = useSelector(orderSelector);
     const dispatch = useDispatch();
-
-    const total = useMemo(() =>
-        (burgerConstructor.bun !== null ? burgerConstructor.bun.price * 2 : 0) + burgerConstructor.filling.reduce(
-            (sum, ingredient) => sum + ingredient.price, 0)
-    , [burgerConstructor]);
 
     const {modalState, openModal, closeModal} = useModal();
 
@@ -33,14 +30,10 @@ export default function BurgerConstructor() {
         accept: "ingredient",
         drop(ingredient) {
             if (ingredient.type === "bun") {
-                dispatch({type: SET_BUN, payload: ingredient});
+                dispatch(setBun(ingredient));
             } else {
-                dispatch({
-                    type: ADD_FILLING, payload: {
-                        ...ingredient,
-                        uuid: uuid(),
-                    }
-                });
+                dispatch(addFilling({...ingredient,
+                    uuid: uuid()}));
             }
         },
         collect: (monitor) => ({
@@ -71,27 +64,9 @@ export default function BurgerConstructor() {
             return;
         }
 
-        fetch("https://norma.nomoreparties.space/api/orders", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                "ingredients": ingredientIdList(),
-            })
-        })
-            .then ((response) => {
-                if (response.ok) {
-                    return response.json();
-                }
-                return Promise.reject(`Ошибка: ${response.status}`);
-            })
-            .then(data => {
-                dispatch({type: SET_ORDER, payload: data.order});
-                openModal();
-                dispatch({type: CLEAR_CONSTRUCTOR});
-            })
-            .catch(console.error);
+        dispatch(fetchOrder(ingredientIdList()));
+        openModal();
+        dispatch(clearConstructor());
     }
 
     const modal = (<Modal onClose={closeModal}>
@@ -119,10 +94,7 @@ export default function BurgerConstructor() {
                                     key={ingredient.uuid}
                                     ingredient={ingredient}
                                     handleRemove={
-                                        () => dispatch({
-                                            type: REMOVE_FILLING_ELEMENT,
-                                            payload: index,
-                                        })}
+                                        () => dispatch(removeFillingElement(index))}
                                     index={index}
                                 />)
                             })

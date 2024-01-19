@@ -4,14 +4,15 @@ import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-com
 import clsx from "clsx";
 import PropTypes from "prop-types";
 import {useDispatch, useSelector} from "react-redux";
-import {ADD_VIEWING_INGREDIENT} from "../../services/constants/constants";
 import {useDrag} from "react-dnd";
+import {burgerConstructorSelector} from "../../services/actions/actionsSelector";
+import {addViewingIngredient} from "../../services/reducers/viewing-ingredient-slice";
 
 export default function Ingredient({ingredient}) {
-    const burgerConstructor = useSelector(store => store.burgerConstructor);
+    const burgerConstructor = useSelector(burgerConstructorSelector);
     const dispatch = useDispatch();
 
-    const calculateCount = () => {
+    function calculateCount() {
         if (ingredient.type !== 'bun') {
             return burgerConstructor.filling.filter(element => element._id === ingredient._id).length;
         } else {
@@ -19,7 +20,7 @@ export default function Ingredient({ingredient}) {
                 return 2;
             }
         }
-        return 0
+        return 0;
     }
 
     const count = calculateCount();
@@ -33,7 +34,7 @@ export default function Ingredient({ingredient}) {
     })
 
     return (
-        <div className={clsx(styles.container, isDrag ? styles.dragging : '')} onClick={() => dispatch({type: ADD_VIEWING_INGREDIENT, payload: ingredient})} ref={dragRef}>
+        <div className={clsx(styles.container, isDrag ? styles.dragging : '')} onClick={() => dispatch(addViewingIngredient(ingredient))} ref={dragRef}>
             <div className={styles.counter}>
                 {   count !== 0 &&
                     <Counter count={count} size="default"/>

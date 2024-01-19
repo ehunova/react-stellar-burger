@@ -5,10 +5,11 @@ import PropTypes from "prop-types";
 import {useDrag, useDrop} from "react-dnd";
 import clsx from "clsx";
 import {useDispatch, useSelector} from "react-redux";
-import {MOVE_FILLING_ELEMENT} from "../../services/constants/constants";
+import {burgerConstructorSelector} from "../../services/actions/actionsSelector";
+import {moveFillingElement} from "../../services/reducers/burger-constructor-slice";
 
 export default function IngredientConstructor({ingredient, handleRemove, index}) {
-    const burgerConstructor = useSelector(store => store.burgerConstructor);
+    const burgerConstructor = useSelector(burgerConstructorSelector);
     const dispatch = useDispatch();
 
     const [{isDrag}, dragRef] = useDrag({
@@ -23,14 +24,11 @@ export default function IngredientConstructor({ingredient, handleRemove, index})
         accept: 'sort',
         hover(dragIngredient) {
             if (dragIngredient.uuid === ingredient.uuid) return
-            dispatch({
-                type: MOVE_FILLING_ELEMENT,
-                payload: {
-                    indexFrom: burgerConstructor.filling.indexOf(dragIngredient),
-                    indexTo: index,
-                    ingredient: dragIngredient,
-                }
-            })
+            dispatch(moveFillingElement({
+                indexFrom: burgerConstructor.filling.indexOf(dragIngredient),
+                indexTo: index,
+                ingredient: dragIngredient,
+            }))
         }
     })
 
@@ -48,5 +46,7 @@ export default function IngredientConstructor({ingredient, handleRemove, index})
 }
 
 IngredientConstructor.propTypes = {
-    ingredient: PropTypes.object
+    ingredient: PropTypes.object,
+    handleRemove: PropTypes.func,
+    index: PropTypes.number,
 };

@@ -6,13 +6,14 @@ import Ingredient from "../ingredient/ingredient";
 import {useDispatch, useSelector} from "react-redux";
 import Modal from "../modal/modal";
 import IngredientInfo from "../ingredient-info/ingredient-info";
-import {REMOVE_VIEWING_INGREDIENT} from "../../services/constants/constants";
+import {ingredientsListSelector, viewingIngredientSelector} from "../../services/actions/actionsSelector";
+import {removeViewingIngredient} from "../../services/reducers/viewing-ingredient-slice";
 
 export default function BurgerIngredients() {
-    const ingredients = useSelector(store => store.ingredientsList);
+    const ingredients = useSelector(ingredientsListSelector);
     const [current, setCurrent] = React.useState("bun");
 
-    const viewingIngredient = useSelector(store => store.viewingIngredient);
+    const viewingIngredient = useSelector(viewingIngredientSelector);
     const dispatch = useDispatch();
 
     const tabRef = useRef(null);
@@ -38,7 +39,7 @@ export default function BurgerIngredients() {
         setCurrent(bunPosition === closestPosition ? 'bun' : saucePosition === closestPosition ? 'sauce' : 'main')
     }
 
-    const modal = (<Modal title={"Детали ингредиента"} onClose={() => dispatch({type: REMOVE_VIEWING_INGREDIENT})}>
+    const modal = (<Modal title={"Детали ингредиента"} onClose={() => dispatch(removeViewingIngredient())}>
         <IngredientInfo ingredient={viewingIngredient}/>
     </Modal>);
 

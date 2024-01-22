@@ -1,31 +1,21 @@
-import React from "react";
+import React, {useEffect} from "react";
 import styles from "./app.module.css";
 import AppHeader from "../app-header/app-header";
 import Main from "../main/main";
+import {useDispatch} from "react-redux";
+import {fetchIngredients} from "../../services/reducers/ingredients-slice";
 
 function App() {
-    const [ingredients, setIngredients] = React.useState([]);
+    const dispatch = useDispatch();
 
-    const getIngredientsList = () => {
-        fetch(`https://norma.nomoreparties.space/api/ingredients`)
-            .then(response => {
-                if (response.ok) {
-                    return response.json();
-                }
-                return Promise.reject(`Ошибка: ${response.status}`);
-            })
-            .then(data => setIngredients(data.data))
-            .catch(console.error);
-    }
-
-    React.useEffect(() => {
-        getIngredientsList();
+    useEffect(() => {
+        dispatch(fetchIngredients())
     }, [])
 
     return (
         <div className={styles.app}>
             <AppHeader/>
-            <Main ingredients={ingredients}/>
+            <Main/>
         </div>
     );
 }

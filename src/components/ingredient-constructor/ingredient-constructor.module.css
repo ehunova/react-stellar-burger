@@ -6,3 +6,7 @@
     gap: 8px;
     cursor: pointer;
 }
+
+.dragging {
+    opacity: .5;
+}

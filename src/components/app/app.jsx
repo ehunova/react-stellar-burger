@@ -4,6 +4,8 @@ import AppHeader from "../app-header/app-header";
 import Main from "../main/main";
 import {useDispatch} from "react-redux";
 import {fetchIngredients} from "../../services/reducers/ingredients-slice";
+import {Route, Routes} from "react-router-dom";
+import NotFound404 from "../../pages/not-found404/not-found404";
 
 function App() {
     const dispatch = useDispatch();
@@ -14,8 +16,12 @@ function App() {
 
     return (
         <div className={styles.app}>
-            <AppHeader/>
-            <Main/>
+            <Routes>
+                <Route path="/" element={<AppHeader/>}>
+                    <Route index element={<Main/>}/>
+                    <Route path="*" element={<NotFound404/>}/>
+                </Route>
+            </Routes>
         </div>
     );
 }

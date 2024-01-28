@@ -10,6 +10,10 @@ import Profile from "../../pages/profile/profile";
 import ProfileEdit from "../../pages/profile-edit/profile-edit";
 import IngredientPage from "../../pages/ingredient-page/ingredient-page";
 import ModalIngredient from "../modal-ingredient/modal-ingredient";
+import Login from "../../pages/login/login";
+import Registration from "../../pages/registration/reristration";
+import ForgotPassword from "../../pages/forgot-password/forgot-password";
+import ResetPassword from "../../pages/reset-password/reset-password";
 
 function App() {
     const dispatch = useDispatch();
@@ -26,6 +30,10 @@ function App() {
                 <Route path="/" element={<AppHeader/>}>
                     <Route index element={<Main/>}/>
                     <Route path="/ingredient/:id" element={<IngredientPage/>}/>
+                    <Route path="/login" element={<Login/>}/>
+                    <Route path="/register" element={<Registration/>}/>
+                    <Route path="/forgot-password" element={<ForgotPassword/>}/>
+                    <Route path="/reset-password" element={<ResetPassword/>}/>
                     <Route path="/profile" element={<Profile/>}>
                         <Route path="/profile/profile-edit" element={<ProfileEdit/>} />
                     </Route>

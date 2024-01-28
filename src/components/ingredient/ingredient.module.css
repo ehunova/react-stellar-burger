@@ -6,6 +6,8 @@
     position: relative;
     cursor: pointer;
     gap: 8px;
+    text-decoration: none;
+    color: #F2F2F3;
 }
 
 .dragging {

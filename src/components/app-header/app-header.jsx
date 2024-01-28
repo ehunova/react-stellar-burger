@@ -14,13 +14,13 @@ export default function AppHeader() {
             <header className={clsx("pt-4 pb-4", styles.header)}>
                 <nav className={styles.container}>
                     <div className={styles.navigations}>
-                        <NavigationLink link="/">
+                        <NavigationLink className={'text text_type_main-default pl-5 pr-5 pb-4 pt-4 mr-2'} link="/">
                             <>
                                 <BurgerIcon type={path === "/" ? "primary" : "secondary"}/>
                                 <span className="ml-2">Конструктор</span>
                             </>
                         </NavigationLink>
-                        <NavigationLink link="/feed">
+                        <NavigationLink className={'text text_type_main-default pl-5 pr-5 pb-4 pt-4 mr-2'} link="/feed">
                             <>
                                 <ListIcon type={path === "/feed" ? "primary" : "secondary"}/>
                                 <span className="ml-2">Лента заказов</span>
@@ -34,7 +34,7 @@ export default function AppHeader() {
                         </NavigationLink>
                     </div>
                     <div>
-                        <NavigationLink link="/profile">
+                        <NavigationLink className={'text text_type_main-default pl-5 pr-5 pb-4 pt-4 mr-2'} link="/profile">
                             <>
                                 <ProfileIcon type={path === "/profile" ? "primary" : "secondary"}/>
                                 <span className="ml-2">Личный кабинет</span>

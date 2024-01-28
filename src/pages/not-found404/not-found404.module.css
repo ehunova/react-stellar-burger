@@ -16,6 +16,14 @@
     color: #8585AD;
 }
 
+.link:focus {
+    color: #F2F2F3;
+}
+
+.link:hover {
+    text-decoration: none;
+}
+
 .image {
     width: 100%;
     height: 60vh;

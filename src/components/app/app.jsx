@@ -14,6 +14,8 @@ import Login from "../../pages/login/login";
 import Registration from "../../pages/registration/reristration";
 import ForgotPassword from "../../pages/forgot-password/forgot-password";
 import ResetPassword from "../../pages/reset-password/reset-password";
+import {OnlyAuth, OnlyUnAuth} from "../protected/protected";
+import {checkAuth} from "../../services/reducers/auth-slice";
 
 function App() {
     const dispatch = useDispatch();
@@ -21,7 +23,8 @@ function App() {
     const background = location.state && location.state.background;
 
     useEffect(() => {
-        dispatch(fetchIngredients())
+        dispatch(fetchIngredients());
+        dispatch(checkAuth());
     }, [])
 
     return (
@@ -30,12 +33,12 @@ function App() {
                 <Route path="/" element={<AppHeader/>}>
                     <Route index element={<Main/>}/>
                     <Route path="/ingredient/:id" element={<IngredientPage/>}/>
-                    <Route path="/login" element={<Login/>}/>
-                    <Route path="/register" element={<Registration/>}/>
-                    <Route path="/forgot-password" element={<ForgotPassword/>}/>
-                    <Route path="/reset-password" element={<ResetPassword/>}/>
-                    <Route path="/profile" element={<Profile/>}>
-                        <Route path="/profile/profile-edit" element={<ProfileEdit/>} />
+                    <Route path="/login" element={<OnlyUnAuth component={<Login />} />} />
+                    <Route path="/register" element={<OnlyUnAuth component={<Registration/>} />} />
+                    <Route path="/forgot-password" element={<OnlyUnAuth component={<ForgotPassword/>} />} />
+                    <Route path="/reset-password" element={<OnlyUnAuth component={<ResetPassword/>} />} />
+                    <Route path="/profile" element={<OnlyAuth component={<Profile/>} />} >
+                        <Route path="/profile" element={<ProfileEdit/>} />
                     </Route>
                     <Route path="*" element={<NotFound404/>}/>
                 </Route>

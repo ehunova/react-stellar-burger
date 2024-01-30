@@ -1,12 +1,15 @@
 import styles from "../profile-edit/profile-edit.module.css";
 import React, {useState} from "react";
 import {Button, EmailInput, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
+import {useSelector} from "react-redux";
+import {userStore} from "../../services/actions/actionsSelector";
 
 export default function ProfileEdit() {
+    const user = useSelector(userStore);
     const [form, setFormItem] = useState({
-        name: '',
-        email: '',
-        password: '',
+        name: user.name,
+        email: user.email,
+        password: "",
     });
 
     const onChange = (event) => {
@@ -15,7 +18,7 @@ export default function ProfileEdit() {
     }
 
     const cancelEditForm = () => {
-
+        setFormItem(user);
     }
 
     return (

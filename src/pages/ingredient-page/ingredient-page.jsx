@@ -2,8 +2,8 @@ import React from "react";
 import styles from "./ingredient-page.module.css";
 import IngredientInfo from "../../components/ingredient-info/ingredient-info";
 import {useSelector} from "react-redux";
-import {ingredientsListSelector, viewingIngredientSelector} from "../../services/actions/actionsSelector";
-import {useNavigate, useParams} from "react-router-dom";
+import {ingredientsListSelector} from "../../services/actions/actionsSelector";
+import {useParams} from "react-router-dom";
 
 export default function IngredientPage() {
     const ingredients = useSelector(ingredientsListSelector);

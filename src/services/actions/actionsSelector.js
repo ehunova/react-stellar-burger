@@ -9,3 +9,6 @@ export const orderTotalSelector = store =>
         : 0
     )
     + store.burgerConstructor.filling.reduce((sum, ingredient) => sum + ingredient.price, 0);
+
+export const isAuthCheckedStore = store => store.auth.isAuthChecked;
+export const userStore = store => store.auth.user;

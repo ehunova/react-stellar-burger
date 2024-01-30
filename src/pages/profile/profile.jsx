@@ -9,7 +9,7 @@ export default function Profile() {
         <section className={styles.container}>
             <div className={styles.navContainer}>
                 <nav className={styles.navbar}>
-                    <NavigationLink className={clsx(styles.link, "text text_type_main-medium")} link="/profile/profile-edit">
+                    <NavigationLink className={clsx(styles.link, "text text_type_main-medium")} link="/profile">
                         <span>Профиль</span>
                     </NavigationLink>
                     <NavigationLink className={clsx(styles.link, "text text_type_main-medium")} link="/profile/orders">

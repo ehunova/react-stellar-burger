@@ -86,6 +86,33 @@ export function logOut() {
         .then(checkResponse);
 }
 
+export function forgotPassword(form) {
+    return fetch(`${baseUrl}/password-reset`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            "email": form.email,
+        }),
+    })
+        .then(checkResponse);
+}
+
+export function resetPassword(form) {
+    return fetch(`${baseUrl}/password-reset/reset`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            "password": form.password,
+            "token": form.code,
+        }),
+    })
+        .then(checkResponse);
+}
+
 export function refreshToken() {
     return fetch(`${baseUrl}/auth/token`, {
         method: "POST",

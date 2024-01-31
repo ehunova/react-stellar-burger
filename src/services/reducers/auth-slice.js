@@ -1,5 +1,13 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {logIn, getUserInfo, registrationUser, logOut, updateUserInfo} from "../../utils/api";
+import {
+    logIn,
+    getUserInfo,
+    registrationUser,
+    logOut,
+    updateUserInfo,
+    forgotPassword,
+    resetPassword
+} from "../../utils/api";
 
 const initialState = {
     user: null,
@@ -37,6 +45,16 @@ export const fetchUserInfo = createAsyncThunk(
 export const fetchUpdateUser = createAsyncThunk(
     "updateUser/patch",
     updateUserInfo
+);
+
+export const fetchForgotPass = createAsyncThunk(
+    "forgotPass/post",
+    forgotPassword
+);
+
+export const fetchResetPass = createAsyncThunk(
+    "resetPass/post",
+    resetPassword
 );
 
 const authSlice = createSlice({

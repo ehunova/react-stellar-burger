@@ -3,8 +3,15 @@ import React from "react";
 import {Outlet} from "react-router-dom";
 import NavigationLink from "../../components/navigation-link/navigation-link";
 import clsx from "clsx";
+import {useDispatch} from "react-redux";
+import {fetchLogOut} from "../../services/reducers/auth-slice";
 
 export default function Profile() {
+    const dispatch = useDispatch();
+    const onLogout = () => {
+        dispatch(fetchLogOut());
+    }
+
     return (
         <section className={styles.container}>
             <div className={styles.navContainer}>
@@ -15,8 +22,8 @@ export default function Profile() {
                     <NavigationLink className={clsx(styles.link, "text text_type_main-medium")} link="/profile/orders">
                         <span>История заказов</span>
                     </NavigationLink>
-                    <NavigationLink className={clsx(styles.link, "text text_type_main-medium")} link="/profile/orders/:id">
-                        <span>Выход</span>
+                    <NavigationLink className={clsx(styles.link, "text text_type_main-medium")} link="/">
+                        <span onClick={onLogout}>Выход</span>
                     </NavigationLink>
                 </nav>
                 <p className={clsx(styles.text, "text text_type_main-default mt-20")}>В этом разделе вы можете изменить

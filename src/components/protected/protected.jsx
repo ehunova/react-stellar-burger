@@ -1,10 +1,10 @@
 import {useSelector} from "react-redux";
 import {Navigate, useLocation} from "react-router-dom";
-import {isAuthCheckedStore, userStore} from "../../services/actions/actionsSelector";
+import {isAuthCheckedSelector, userSelector} from "../../services/actions/actionsSelector";
 
 function Protected({ onlyUnAuth = false, component }) {
-    const isAuthChecked = useSelector(isAuthCheckedStore);
-    const user = useSelector(userStore);
+    const isAuthChecked = useSelector(isAuthCheckedSelector);
+    const user = useSelector(userSelector);
     const location = useLocation();
 
     if (!isAuthChecked) {

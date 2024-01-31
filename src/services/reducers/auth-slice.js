@@ -1,5 +1,5 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {logIn, getUserInfo, registrationUser, logOut} from "../../utils/api";
+import {logIn, getUserInfo, registrationUser, logOut, updateUserInfo} from "../../utils/api";
 
 const initialState = {
     user: null,
@@ -34,6 +34,11 @@ export const fetchUserInfo = createAsyncThunk(
     getUserInfo
 );
 
+export const fetchUpdateUser = createAsyncThunk(
+    "updateUser/patch",
+    updateUserInfo
+);
+
 const authSlice = createSlice({
     name: 'auth',
     initialState,
@@ -49,8 +54,10 @@ const authSlice = createSlice({
                 handleLogout(state);
             })
             .addCase(fetchUserInfo.fulfilled.type, (state, action) => {
-                state.user = action.payload.user;
-                state.isAuthChecked = true;
+                handleUserInfo(state, action);
+            })
+            .addCase(fetchUpdateUser.fulfilled.type, (state, action) => {
+                handleUserInfo(state, action);
             })
             .addCase(fetchUserInfo.rejected.type, (state, action) => {
                 handleLogout(state);
@@ -72,6 +79,11 @@ function handleLogin(state, action) {
     state.user = action.payload.user;
     localStorage.setItem("accessToken", action.payload.accessToken);
     localStorage.setItem("refreshToken", action.payload.refreshToken);
+}
+
+function handleUserInfo(state, action) {
+    state.user = action.payload.user;
+    state.isAuthChecked = true;
 }
 
 export default authSlice.reducer;

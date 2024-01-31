@@ -42,7 +42,21 @@ export function getUserInfo() {
             authorization: localStorage.getItem("accessToken"),
         },
     })
-        .then(checkResponse);
+}
+
+export function updateUserInfo(user) {
+    return fetchWithRefresh(`${baseUrl}/auth/user`, {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json",
+            authorization: localStorage.getItem("accessToken"),
+        },
+        body: JSON.stringify({
+            "name": user.name,
+            "email": user.email,
+            "password": user.password,
+        })
+    })
 }
 
 export function logIn(user) {
@@ -51,7 +65,6 @@ export function logIn(user) {
         headers: {
             "Content-Type": "application/json",
         },
-
         body: JSON.stringify({
             "email": user.email,
             "password": user.password,

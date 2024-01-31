@@ -1,9 +1,9 @@
-import React, {useCallback, useEffect, useState} from "react";
+import React, {useState} from "react";
 import styles from "../registration/registration.module.css";
 import {Button, EmailInput, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import clsx from "clsx";
-import {Link, useNavigate} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
+import {Link} from "react-router-dom";
+import {useDispatch} from "react-redux";
 import {fetchRegistration} from "../../services/reducers/auth-slice";
 
 export default function Registration() {

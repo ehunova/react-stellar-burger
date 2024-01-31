@@ -1,5 +1,4 @@
 import React from "react";
-import styles from "../orders-history/orders-history.module.css";
 
 export default function OrdersHistory () {
     return (

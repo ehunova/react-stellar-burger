@@ -1,12 +1,12 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {
-    logIn,
-    getUserInfo,
-    registrationUser,
-    logOut,
-    updateUserInfo,
     forgotPassword,
-    resetPassword
+    getUserInfo,
+    logIn,
+    logOut,
+    registrationUser,
+    resetPassword,
+    updateUserInfo
 } from "../../utils/api";
 
 const initialState = {

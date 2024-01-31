@@ -1,5 +1,4 @@
 import React from "react";
-import styles from "../feed/feed.module.css";
 
 export default function Feed () {
     return (

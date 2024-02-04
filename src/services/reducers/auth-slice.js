@@ -14,14 +14,6 @@ const initialState = {
     isAuthChecked: true,
 };
 
-export const checkAuth = () => {
-    return (dispatch) => {
-        if (localStorage.getItem("accessToken")) {
-            dispatch(fetchUserInfo())
-        }
-    };
-};
-
 export const fetchRegistration = createAsyncThunk(
     "registration/post",
     registrationUser

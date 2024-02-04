@@ -1,13 +1,12 @@
 import {baseUrl} from "../services/constants/constants";
-import {checkResponse} from "./utils";
+import {checkResponse, request} from "./utils";
 
 export function getIngredientsList() {
-    return fetch(`${baseUrl}/ingredients`)
-        .then(checkResponse);
+    return request(`/ingredients`);
 }
 
 export function createOrder(ingredientIdList) {
-    return fetch(`${baseUrl}/orders`, {
+    return request(`/orders`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -16,11 +15,10 @@ export function createOrder(ingredientIdList) {
             "ingredients": ingredientIdList,
         })
     })
-        .then(checkResponse);
 }
 
 export function registrationUser(user) {
-    return fetch(`${baseUrl}/auth/register`, {
+    return request(`/auth/register`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -31,7 +29,6 @@ export function registrationUser(user) {
             "password": user.password,
         })
     })
-        .then(checkResponse);
 }
 
 export function getUserInfo() {
@@ -60,7 +57,7 @@ export function updateUserInfo(user) {
 }
 
 export function logIn(user) {
-    return fetch(`${baseUrl}/auth/login`, {
+    return request(`/auth/login`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -70,11 +67,10 @@ export function logIn(user) {
             "password": user.password,
         })
     })
-        .then(checkResponse);
 }
 
 export function logOut() {
-    return fetch(`${baseUrl}/auth/logout`, {
+    return request(`/auth/logout`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -83,11 +79,10 @@ export function logOut() {
             token: localStorage.getItem('refreshToken'),
         }),
     })
-        .then(checkResponse);
 }
 
 export function forgotPassword(form) {
-    return fetch(`${baseUrl}/password-reset`, {
+    return request(`/password-reset`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -96,11 +91,10 @@ export function forgotPassword(form) {
             "email": form.email,
         }),
     })
-        .then(checkResponse);
 }
 
 export function resetPassword(form) {
-    return fetch(`${baseUrl}/password-reset/reset`, {
+    return request(`/password-reset/reset`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -110,11 +104,10 @@ export function resetPassword(form) {
             "token": form.code,
         }),
     })
-        .then(checkResponse);
 }
 
 export function refreshToken() {
-    return fetch(`${baseUrl}/auth/token`, {
+    return request(`/auth/token`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -123,7 +116,6 @@ export function refreshToken() {
             token: localStorage.getItem('refreshToken'),
         }),
     })
-        .then(checkResponse);
 }
 
 const fetchWithRefresh = async (url, options) => {

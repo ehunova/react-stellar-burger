@@ -15,7 +15,7 @@ import Registration from "../../pages/registration/reristration";
 import ForgotPassword from "../../pages/forgot-password/forgot-password";
 import ResetPassword from "../../pages/reset-password/reset-password";
 import {OnlyAuth, OnlyUnAuth} from "../protected/protected";
-import {checkAuth} from "../../services/reducers/auth-slice";
+import {fetchUserInfo} from "../../services/reducers/auth-slice";
 import OrdersHistory from "../../pages/orders-history/orders-history";
 import Feed from "../../pages/feed/feed";
 
@@ -26,7 +26,10 @@ function App() {
 
     useEffect(() => {
         dispatch(fetchIngredients());
-        dispatch(checkAuth());
+
+        if (localStorage.getItem("accessToken")) {
+            dispatch(fetchUserInfo())
+        }
     }, [])
 
     return (

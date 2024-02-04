@@ -1,17 +1,18 @@
-import React, {useState} from "react";
+import React, {ChangeEvent, FormEvent, useState} from "react";
 import styles from "../registration/registration.module.css";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import clsx from "clsx";
-import {Link, Navigate, useLocation, useNavigate} from "react-router-dom";
+import {Link, Location, Navigate, useLocation, useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {fetchResetPass} from "../../services/reducers/auth-slice";
+import {TResetPass} from "../../utils/types";
 
 export default function ResetPassword() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const location = useLocation();
+    const location: Location<{ from?: string }> = useLocation();
 
-    const [form, setFormItem] = useState({
+    const [form, setFormItem] = useState<TResetPass>({
         password: "",
         code: "",
     });
@@ -20,12 +21,12 @@ export default function ResetPassword() {
         return <Navigate to={'/'}/>
     }
 
-    const onChange = (event) => {
+    const onChange = (event: ChangeEvent<HTMLInputElement>) => {
         setFormItem({...form, [event.target.name]: event.target.value});
         return form;
     }
 
-    const onSubmit = (event) => {
+    const onSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         dispatch(fetchResetPass(form));
         navigate('/login');
@@ -35,7 +36,8 @@ export default function ResetPassword() {
         <section className={styles.container}>
             <h1 className="text text_type_main-large">Восстановление пароля</h1>
             <form className={clsx(styles.form, "mt-6")} onSubmit={onSubmit}>
-                <PasswordInput value={form.password} name="password" placeholder={"Введите новый пароль"} onChange={onChange}/>
+                <PasswordInput value={form.password} name="password" placeholder={"Введите новый пароль"}
+                               onChange={onChange}/>
                 <Input value={form.code} onChange={onChange} name="code" placeholder={"Введите код из письма"}/>
                 <Button htmlType={"submit"} size="medium">Сохранить</Button>
             </form>

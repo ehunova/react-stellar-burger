@@ -1,5 +1,5 @@
 import {request, TBasicResponse, TBasicResponseWithMessage} from "./utils";
-import {TIngredient, TOrder, TUser} from "./types";
+import {TForgotPass, TIngredient, TOrder, TResetPass, TUser, TUserLogIn, TUserRegistration, TUserUpdate} from "./types";
 
 type TGetIngredientsListResponse = TBasicResponse & {
     data: TIngredient[];
@@ -21,7 +21,6 @@ export function createOrder(ingredientIdList: Array<string>): Promise<TBasicResp
     })
 }
 
-type TUserRegistration = TUser & { password: string };
 type TUserTokens = {
     accessToken: string;
     refreshToken: string;
@@ -52,8 +51,6 @@ export function getUserInfo(): Promise<TBasicResponse & TUser> {
     })
 }
 
-type TUserUpdate = TUser & { password: string };
-
 export function updateUserInfo(user: TUserUpdate): Promise<TBasicResponse & TUser> {
     return requestWithRefresh(`/auth/user`, {
         method: "PATCH",
@@ -67,11 +64,6 @@ export function updateUserInfo(user: TUserUpdate): Promise<TBasicResponse & TUse
             "password": user.password,
         })
     })
-}
-
-type TUserLogIn = {
-    email: string;
-    password: string;
 }
 
 export function logIn(user: TUserLogIn): Promise<TBasicResponse & TUserWithTokens> {
@@ -99,10 +91,6 @@ export function logOut(): Promise<TBasicResponse> {
     })
 }
 
-type TForgotPass = {
-    email: string;
-}
-
 export function forgotPassword(form: TForgotPass): Promise<TBasicResponseWithMessage> {
     return request(`/password-reset`, {
         method: "POST",
@@ -113,11 +101,6 @@ export function forgotPassword(form: TForgotPass): Promise<TBasicResponseWithMes
             "email": form.email,
         }),
     })
-}
-
-type TResetPass = {
-    password: string;
-    code: string;
 }
 
 export function resetPassword(form: TResetPass): Promise<TBasicResponseWithMessage> {

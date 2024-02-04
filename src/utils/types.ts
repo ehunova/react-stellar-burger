@@ -25,3 +25,16 @@ export type TOrder = {
         number: number;
     }
 }
+export type TUserRegistration = TUser & { password: string };
+export type TUserUpdate = TUser & { password: string };
+export type TUserLogIn = {
+    email: string;
+    password: string;
+}
+export type TForgotPass = {
+    email: string;
+}
+export type TResetPass = {
+    password: string;
+    code: string;
+}

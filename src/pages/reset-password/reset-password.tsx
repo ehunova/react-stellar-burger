@@ -5,12 +5,12 @@ import clsx from "clsx";
 import {Link, Location, Navigate, useLocation, useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {fetchResetPass} from "../../services/reducers/auth-slice";
-import {TResetPass} from "../../utils/types";
+import {TFromLocation, TResetPass} from "../../utils/types";
 
 export default function ResetPassword() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const location: Location<{ from?: string }> = useLocation();
+    const location: Location<TFromLocation> = useLocation();
 
     const [form, setFormItem] = useState<TResetPass>({
         password: "",

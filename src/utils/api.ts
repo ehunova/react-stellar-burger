@@ -1,11 +1,15 @@
-import {baseUrl} from "../services/constants/constants";
-import {checkResponse, request} from "./utils";
+import {request, TBasicResponse, TBasicResponseWithMessage} from "./utils";
+import {TIngredient, TOrder, TUser} from "./types";
 
-export function getIngredientsList() {
-    return request(`/ingredients`);
+type TGetIngredientsListResponse = TBasicResponse & {
+    data: TIngredient[];
+};
+
+export function getIngredientsList(): Promise<TGetIngredientsListResponse> {
+    return request<TGetIngredientsListResponse>(`/ingredients`);
 }
 
-export function createOrder(ingredientIdList) {
+export function createOrder(ingredientIdList: Array<string>): Promise<TBasicResponse & TOrder> {
     return request(`/orders`, {
         method: "POST",
         headers: {
@@ -17,7 +21,14 @@ export function createOrder(ingredientIdList) {
     })
 }
 
-export function registrationUser(user) {
+type TUserRegistration = TUser & { password: string };
+type TUserTokens = {
+    accessToken: string;
+    refreshToken: string;
+}
+type TUserWithTokens = TUser & TUserTokens;
+
+export function registrationUser(user: TUserRegistration): Promise<TBasicResponse & TUserWithTokens> {
     return request(`/auth/register`, {
         method: "POST",
         headers: {
@@ -31,22 +42,24 @@ export function registrationUser(user) {
     })
 }
 
-export function getUserInfo() {
-    return fetchWithRefresh(`${baseUrl}/auth/user`, {
+export function getUserInfo(): Promise<TBasicResponse & TUser> {
+    return requestWithRefresh(`/auth/user`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
-            authorization: localStorage.getItem("accessToken"),
+            authorization: localStorage.getItem("accessToken") || "",
         },
     })
 }
 
-export function updateUserInfo(user) {
-    return fetchWithRefresh(`${baseUrl}/auth/user`, {
+type TUserUpdate = TUser & { password: string };
+
+export function updateUserInfo(user: TUserUpdate): Promise<TBasicResponse & TUser> {
+    return requestWithRefresh(`/auth/user`, {
         method: "PATCH",
         headers: {
             "Content-Type": "application/json",
-            authorization: localStorage.getItem("accessToken"),
+            authorization: localStorage.getItem("accessToken") || "",
         },
         body: JSON.stringify({
             "name": user.name,
@@ -56,7 +69,12 @@ export function updateUserInfo(user) {
     })
 }
 
-export function logIn(user) {
+type TUserLogIn = {
+    email: string;
+    password: string;
+}
+
+export function logIn(user: TUserLogIn): Promise<TBasicResponse & TUserWithTokens> {
     return request(`/auth/login`, {
         method: "POST",
         headers: {
@@ -69,7 +87,7 @@ export function logIn(user) {
     })
 }
 
-export function logOut() {
+export function logOut(): Promise<TBasicResponse> {
     return request(`/auth/logout`, {
         method: "POST",
         headers: {
@@ -81,7 +99,11 @@ export function logOut() {
     })
 }
 
-export function forgotPassword(form) {
+type TForgotPass = {
+    email: string;
+}
+
+export function forgotPassword(form: TForgotPass): Promise<TBasicResponseWithMessage> {
     return request(`/password-reset`, {
         method: "POST",
         headers: {
@@ -93,7 +115,12 @@ export function forgotPassword(form) {
     })
 }
 
-export function resetPassword(form) {
+type TResetPass = {
+    password: string;
+    code: string;
+}
+
+export function resetPassword(form: TResetPass): Promise<TBasicResponseWithMessage> {
     return request(`/password-reset/reset`, {
         method: "POST",
         headers: {
@@ -106,7 +133,7 @@ export function resetPassword(form) {
     })
 }
 
-export function refreshToken() {
+export function refreshToken(): Promise<TBasicResponse & TUserTokens> {
     return request(`/auth/token`, {
         method: "POST",
         headers: {
@@ -118,11 +145,12 @@ export function refreshToken() {
     })
 }
 
-const fetchWithRefresh = async (url, options) => {
+type TRequestWithRefreshInit = RequestInit & { headers: { authorization: string } };
+
+const requestWithRefresh = async <TResponse>(endpoint: string, options: TRequestWithRefreshInit) => {
     try {
-        const res = await fetch(url, options);
-        return await checkResponse(res);
-    } catch (err) {
+        return await request<TResponse>(endpoint, options);
+    } catch (err: any) {
         if (err.message === "jwt expired") {
             const refreshData = await refreshToken();
             if (!refreshData.success) {
@@ -131,8 +159,7 @@ const fetchWithRefresh = async (url, options) => {
             localStorage.setItem("accessToken", refreshData.accessToken);
             localStorage.setItem("refreshToken", refreshData.refreshToken);
             options.headers.authorization = refreshData.accessToken;
-            const res = await fetch(url, options);
-            return await checkResponse(res);
+            return await request<TResponse>(endpoint, options);
         } else {
             return Promise.reject(err);
         }

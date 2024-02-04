@@ -1,0 +1,34 @@
+.container {
+    display: flex;
+    max-width: 1160px;
+    margin: 120px auto 0;
+    gap: 60px;
+    justify-content: start;
+}
+
+.navContainer {
+    display: flex;
+    flex-direction: column;
+    max-width: 320px;
+}
+
+.navbar {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+.link {
+    height: 64px;
+}
+
+.text {
+    text-align: left;
+    color: #8585AD;
+}
+
+.content {
+    display: flex;
+    max-width: 840px;
+    min-width: 480px;
+}

@@ -9,7 +9,12 @@ import useModal from "../../hooks/use-modal";
 import {useDispatch, useSelector} from "react-redux";
 import {useDrop} from "react-dnd";
 import {v4 as uuid} from 'uuid';
-import {burgerConstructorSelector, orderSelector, orderTotalSelector} from "../../services/actions/actionsSelector";
+import {
+    burgerConstructorSelector,
+    orderSelector,
+    orderTotalSelector,
+    userSelector
+} from "../../services/actions/actionsSelector";
 import {
     addFilling,
     clearConstructor,
@@ -17,11 +22,14 @@ import {
     setBun
 } from "../../services/reducers/burger-constructor-slice";
 import {fetchOrder} from "../../services/reducers/order-slice";
+import {useNavigate} from "react-router-dom";
 
 export default function BurgerConstructor() {
     const burgerConstructor = useSelector(burgerConstructorSelector);
     const total = useSelector(orderTotalSelector);
     const order = useSelector(orderSelector);
+    const user = useSelector(userSelector);
+    const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const {modalState, openModal, closeModal} = useModal();
@@ -61,6 +69,11 @@ export default function BurgerConstructor() {
 
     const createOrder = () => {
         if (burgerConstructor.bun == null) {
+            return;
+        }
+
+        if (!user) {
+            navigate('/login');
             return;
         }
 

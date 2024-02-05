@@ -3,7 +3,12 @@ import {Location, Navigate, useLocation} from "react-router-dom";
 import {isAuthCheckedSelector, userSelector} from "../../services/actions/actionsSelector";
 import {TFromLocation, TUser} from "../../utils/types";
 
-function Protected({ onlyUnAuth = false, component }: {onlyUnAuth: boolean, component: JSX.Element}): JSX.Element | null {
+type TProtected = {
+    onlyUnAuth: boolean;
+    component: JSX.Element
+}
+
+function Protected({ onlyUnAuth = false, component }: TProtected): JSX.Element | null {
     const isAuthChecked = useSelector(isAuthCheckedSelector);
     const user: TUser = useSelector(userSelector);
     const location: Location<TFromLocation> = useLocation();

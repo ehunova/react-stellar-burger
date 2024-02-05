@@ -23,7 +23,7 @@ const burgerConstructorSlice = createSlice({
             state.filling.splice(indexFrom, 1);
             state.filling.splice(indexTo, 0, ingredient);
         },
-        clearConstructor: (state, action) => {
+        clearConstructor: () => {
             return initialState;
         },
     }

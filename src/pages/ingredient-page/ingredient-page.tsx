@@ -1,4 +1,4 @@
-import React, {FC} from "react";
+import React from "react";
 import styles from "./ingredient-page.module.css";
 import IngredientInfo from "../../components/ingredient-info/ingredient-info";
 import {useSelector} from "react-redux";

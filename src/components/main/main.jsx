@@ -1,5 +1,5 @@
 import React from "react";
-import BurgerConstructor from "../burger-constructor/burger-constructor.jsx";
+import BurgerConstructor from "../burger-constructor/burger-constructor.tsx";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients.jsx";
 import styles from "./main.module.css";
 import clsx from "clsx";

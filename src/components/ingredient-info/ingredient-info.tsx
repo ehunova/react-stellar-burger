@@ -1,9 +1,13 @@
 import React from "react";
 import styles from "./ingredient-info.module.css";
 import clsx from "clsx";
-import PropTypes from "prop-types";
+import {TIngredient} from "../../utils/types";
 
-export default function IngredientInfo({ingredient}) {
+type TIngredientInfo = {
+    ingredient: TIngredient;
+}
+
+export default function IngredientInfo({ingredient}: TIngredientInfo) {
     return (
         <div className={styles.container}>
             <img src={ingredient.image_large} alt={ingredient.name} />
@@ -29,7 +33,3 @@ export default function IngredientInfo({ingredient}) {
         </div>
     )
 }
-
-IngredientInfo.propTypes = {
-    ingredient: PropTypes.object
-};

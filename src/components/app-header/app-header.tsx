@@ -3,10 +3,11 @@ import React from "react";
 import styles from "./app-header.module.css";
 import clsx from "clsx";
 import NavigationLink from "../navigation-link/navigation-link";
-import {Outlet, useLocation} from "react-router-dom";
+import {Location, Outlet, useLocation} from "react-router-dom";
+import {TFromLocation} from "../../utils/types";
 
 export default function AppHeader() {
-    const location = useLocation();
+    const location: Location<TFromLocation> = useLocation();
     const path = location.pathname;
 
     return (

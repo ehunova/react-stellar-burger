@@ -8,7 +8,7 @@ import OrderDetails from "../order-details/order-details";
 import useModal from "../../hooks/use-modal";
 import {useDispatch, useSelector} from "react-redux";
 import {useDrop} from "react-dnd";
-import {v4 as uuid} from 'uuid';
+import {v4 as uuid} from "uuid";
 import {
     burgerConstructorSelector,
     orderSelector,
@@ -23,9 +23,12 @@ import {
 } from "../../services/reducers/burger-constructor-slice";
 import {fetchOrder} from "../../services/reducers/order-slice";
 import {useNavigate} from "react-router-dom";
+import {TIngredient, TIngredientConstructor} from "../../utils/types";
+
+type TCollectedProps = { isDropIngredient: boolean; };
 
 export default function BurgerConstructor() {
-    const burgerConstructor = useSelector(burgerConstructorSelector);
+    const burgerConstructor: TIngredientConstructor = useSelector(burgerConstructorSelector);
     const total = useSelector(orderTotalSelector);
     const order = useSelector(orderSelector);
     const user = useSelector(userSelector);
@@ -34,7 +37,7 @@ export default function BurgerConstructor() {
 
     const {modalState, openModal, closeModal} = useModal();
 
-    const [{isDropIngredient}, dropRefIngredient] = useDrop({
+    const [{isDropIngredient}, dropRefIngredient] = useDrop<TIngredient, unknown, TCollectedProps>({
         accept: "ingredient",
         drop(ingredient) {
             if (ingredient.type === "bun") {
@@ -49,7 +52,7 @@ export default function BurgerConstructor() {
         })
     })
 
-    const ingredientIdList = () => {
+    const ingredientIdList = (): Array<string> => {
         const list = [];
 
         if (burgerConstructor.bun !== null) {

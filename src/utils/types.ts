@@ -1,4 +1,4 @@
-import {Location} from "react-router-dom";
+import {store} from "../services/store";
 
 export type TIngredient = {
     _id: string;
@@ -14,6 +14,11 @@ export type TIngredient = {
     image_large: string;
     __v: number;
     uuid?: string;
+}
+
+export type TIngredientConstructor = {
+    bun: TIngredient | null;
+    filling: TIngredient[];
 }
 
 export type TUser = {
@@ -41,4 +46,4 @@ export type TResetPass = {
     code: string;
 }
 
-export type TFromLocation = { from: string };
+export type TFromLocation = { from: string, pathname?: string };

@@ -1,5 +1,3 @@
-import {store} from "../services/store";
-
 export type TIngredient = {
     _id: string;
     name: string;

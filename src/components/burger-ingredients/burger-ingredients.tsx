@@ -1,21 +1,22 @@
-import React, {useRef} from "react";
+import React, {useRef, useState} from "react";
 import styles from './burger-ingredients.module.css';
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import clsx from "clsx";
 import Ingredient from "../ingredient/ingredient";
 import {useSelector} from "react-redux";
 import {ingredientsListSelector} from "../../services/actions/actionsSelector";
+import {TIngredient} from "../../utils/types";
 
 export default function BurgerIngredients() {
-    const ingredients = useSelector(ingredientsListSelector);
-    const [current, setCurrent] = React.useState("bun");
+    const ingredients: TIngredient[] = useSelector(ingredientsListSelector);
+    const [current, setCurrent] = useState<string>("bun");
 
-    const tabRef = useRef(null);
-    const bunRef = useRef(null);
-    const sauceRef = useRef(null);
-    const mainRef = useRef(null);
+    const tabRef = useRef<HTMLDivElement>(null);
+    const bunRef = useRef<HTMLHeadingElement>(null);
+    const sauceRef = useRef<HTMLHeadingElement>(null);
+    const mainRef = useRef<HTMLHeadingElement>(null);
 
-    const scrollListener = () => {
+    const scrollListener = (): void => {
         if (tabRef.current === null || bunRef.current === null || sauceRef.current === null || mainRef.current === null) {
             return;
         }

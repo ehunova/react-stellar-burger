@@ -1,6 +1,6 @@
 import React from "react";
 import BurgerConstructor from "../burger-constructor/burger-constructor.tsx";
-import BurgerIngredients from "../burger-ingredients/burger-ingredients.jsx";
+import BurgerIngredients from "../burger-ingredients/burger-ingredients.tsx";
 import styles from "./main.module.css";
 import clsx from "clsx";
 import {HTML5Backend} from "react-dnd-html5-backend";

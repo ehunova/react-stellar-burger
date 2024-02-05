@@ -2,10 +2,13 @@ import React from "react";
 import styles from "./order-details.module.css";
 import iconDone from "../../images/icon-done.svg"
 import clsx from "clsx";
-import PropTypes from "prop-types";
 import Loader from "../loader/loader";
 
-export default function OrderDetails(props) {
+type TOrderDetails = {
+    orderNumber: number;
+}
+
+export default function OrderDetails(props: TOrderDetails) {
     return (
         <div className={clsx(styles.container, "mt-20 mb-30")}>
             {
@@ -19,7 +22,3 @@ export default function OrderDetails(props) {
         </div>
     )
 }
-
-OrderDetails.propTypes = {
-    orderNumber: PropTypes.number
-};

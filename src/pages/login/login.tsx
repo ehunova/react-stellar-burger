@@ -1,24 +1,25 @@
-import React, {useState} from "react";
+import React, {ChangeEvent, FormEvent, useState} from "react";
 import styles from "../login/login.module.css";
 import {Button, EmailInput, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import clsx from "clsx";
 import {Link} from "react-router-dom";
 import {fetchLogIn} from "../../services/reducers/auth-slice";
 import {useDispatch} from "react-redux";
+import {TUserLogIn} from "../../utils/types";
 
 export default function Login() {
     const dispatch = useDispatch();
-    const [form, setFormItem] = useState({
+    const [form, setFormItem] = useState<TUserLogIn>({
         email: '',
         password: '',
     });
 
-    const onChange = (event) => {
+    const onChange = (event: ChangeEvent<HTMLInputElement>) => {
         setFormItem({...form, [event.target.name]: event.target.value});
         return form;
     }
 
-    const onSubmit = (event) => {
+    const onSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         dispatch(fetchLogIn(form));
     }

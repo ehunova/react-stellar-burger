@@ -1,7 +1,7 @@
-import React from "react";
+import React, {useEffect} from "react";
 
 export default function useEscapeHandler(onEscape) {
-    React.useEffect(() => {
+    useEffect(() => {
         const listenEscape = (event) => {
             if (event.key === "Escape") {
                 onEscape();

@@ -1,7 +1,13 @@
 import React, {useCallback} from "react";
 
-export default function useModal() {
-    const [modalState, setModalState] = React.useState(false);
+type TUseModal = {
+    modalState: boolean;
+    openModal: () => void;
+    closeModal: () => void;
+}
+
+export default function useModal(): TUseModal {
+    const [modalState, setModalState] = React.useState<boolean>(false);
 
     const openModal = useCallback(() => {
         setModalState(true);

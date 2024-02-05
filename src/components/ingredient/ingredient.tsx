@@ -2,17 +2,23 @@ import React from "react";
 import styles from "./ingredient.module.css";
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import clsx from "clsx";
-import PropTypes from "prop-types";
 import {useSelector} from "react-redux";
 import {useDrag} from "react-dnd";
 import {burgerConstructorSelector} from "../../services/actions/actionsSelector";
-import {Link, useLocation} from "react-router-dom";
+import {Link, Location, useLocation} from "react-router-dom";
+import {TFromLocation, TIngredient, TIngredientConstructor} from "../../utils/types";
 
-export default function Ingredient({ingredient}) {
-    const burgerConstructor = useSelector(burgerConstructorSelector);
-    const location = useLocation();
+type TIngredientProps = {
+    ingredient: TIngredient;
+}
 
-    function calculateCount() {
+type TCollectedProps = { isDrag: boolean; };
+
+export default function Ingredient({ingredient}: TIngredientProps) {
+    const burgerConstructor: TIngredientConstructor = useSelector(burgerConstructorSelector);
+    const location: Location<TFromLocation> = useLocation();
+
+    function calculateCount(): number {
         if (ingredient.type !== 'bun') {
             return burgerConstructor.filling.filter(element => element._id === ingredient._id).length;
         } else {
@@ -25,7 +31,7 @@ export default function Ingredient({ingredient}) {
 
     const count = calculateCount();
 
-    const [{isDrag}, dragRef] = useDrag({
+    const [{isDrag}, dragRef] = useDrag<TIngredient, unknown, TCollectedProps>({
         type: "ingredient",
         item: ingredient,
         collect: (monitor) => ({
@@ -51,7 +57,3 @@ export default function Ingredient({ingredient}) {
         </Link>
     )
 }
-
-Ingredient.propTypes = {
-    ingredient: PropTypes.object
-};

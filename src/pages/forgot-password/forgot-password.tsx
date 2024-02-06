@@ -3,13 +3,12 @@ import styles from "../registration/registration.module.css";
 import {Button, EmailInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import clsx from "clsx";
 import {Link, useNavigate} from "react-router-dom";
-import {useDispatch} from "react-redux";
 import {fetchForgotPass} from "../../services/reducers/auth-slice";
-import {TForgotPass} from "../../utils/types";
+import {TForgotPass, useAppDispatch} from "../../utils/types";
 import {useForm} from "../../hooks/use-form";
 
 export default function ForgotPassword() {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
     const {form, onChange} = useForm<TForgotPass>({

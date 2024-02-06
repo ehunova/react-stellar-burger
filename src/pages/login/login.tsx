@@ -4,12 +4,11 @@ import {Button, EmailInput, PasswordInput} from "@ya.praktikum/react-developer-b
 import clsx from "clsx";
 import {Link} from "react-router-dom";
 import {fetchLogIn} from "../../services/reducers/auth-slice";
-import {useDispatch} from "react-redux";
-import {TUserLogIn} from "../../utils/types";
+import {TUserLogIn, useAppDispatch} from "../../utils/types";
 import {useForm} from "../../hooks/use-form";
 
 export default function Login() {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     const {form, onChange} = useForm<TUserLogIn>({
         email: "",

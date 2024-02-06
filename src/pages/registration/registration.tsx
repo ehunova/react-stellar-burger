@@ -3,13 +3,12 @@ import styles from "../registration/registration.module.css";
 import {Button, EmailInput, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import clsx from "clsx";
 import {Link} from "react-router-dom";
-import {useDispatch} from "react-redux";
 import {fetchRegistration} from "../../services/reducers/auth-slice";
-import {TUserRegistration} from "../../utils/types";
+import {TUserRegistration, useAppDispatch} from "../../utils/types";
 import {useForm} from "../../hooks/use-form";
 
 export default function Registration() {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     const {form, onChange} = useForm<TUserRegistration>({
         name: "",

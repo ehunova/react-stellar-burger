@@ -1,13 +1,12 @@
 import React from "react";
-import {useSelector} from "react-redux";
 import {ingredientsListSelector} from "../../services/actions/actionsSelector";
 import {useNavigate, useParams} from "react-router-dom";
 import IngredientInfo from "../ingredient-info/ingredient-info";
 import Modal from "../modal/modal";
-import {TIngredient} from "../../utils/types";
+import {TIngredient, useAppSelector} from "../../utils/types";
 
 export default function ModalIngredient() {
-    const ingredients: TIngredient[] = useSelector(ingredientsListSelector);
+    const ingredients: TIngredient[] = useAppSelector(ingredientsListSelector);
     const {id} = useParams<{ id: string }>();
     const navigate = useNavigate();
 

@@ -3,13 +3,12 @@ import styles from "../registration/registration.module.css";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import clsx from "clsx";
 import {Link, Location, Navigate, useLocation, useNavigate} from "react-router-dom";
-import {useDispatch} from "react-redux";
 import {fetchResetPass} from "../../services/reducers/auth-slice";
-import {TFromLocation, TResetPass} from "../../utils/types";
+import {TFromLocation, TResetPass, useAppDispatch} from "../../utils/types";
 import {useForm} from "../../hooks/use-form";
 
 export default function ResetPassword() {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const location: Location<TFromLocation> = useLocation();
 

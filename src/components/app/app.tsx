@@ -2,7 +2,6 @@ import React, {useEffect} from "react";
 import styles from "./app.module.css";
 import AppHeader from "../app-header/app-header";
 import Main from "../main/main";
-import {useDispatch} from "react-redux";
 import {fetchIngredients} from "../../services/reducers/ingredients-slice";
 import {Location, Route, Routes, useLocation} from "react-router-dom";
 import NotFound404 from "../../pages/not-found404/not-found404";
@@ -18,10 +17,10 @@ import {OnlyAuth, OnlyUnAuth} from "../protected/protected";
 import {fetchUserInfo} from "../../services/reducers/auth-slice";
 import OrdersHistory from "../../pages/orders-history/orders-history";
 import Feed from "../../pages/feed/feed";
-import {TFromLocation} from "../../utils/types";
+import {TFromLocation, useAppDispatch} from "../../utils/types";
 
 function App() {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const location: Location<TFromLocation> = useLocation();
     const background = location.state && location.state.background;
 

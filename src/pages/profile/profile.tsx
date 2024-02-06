@@ -3,11 +3,11 @@ import React from "react";
 import {Outlet} from "react-router-dom";
 import NavigationLink from "../../components/navigation-link/navigation-link";
 import clsx from "clsx";
-import {useDispatch} from "react-redux";
 import {fetchLogOut} from "../../services/reducers/auth-slice";
+import {useAppDispatch} from "../../utils/types";
 
 export default function Profile() {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const onLogout = () => {
         dispatch(fetchLogOut());
     }

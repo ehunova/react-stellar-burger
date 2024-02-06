@@ -6,7 +6,6 @@ import IngredientConstructor from "../ingredient-constructor/ingredient-construc
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
 import useModal from "../../hooks/use-modal";
-import {useDispatch, useSelector} from "react-redux";
 import {useDrop} from "react-dnd";
 import {v4 as uuid} from "uuid";
 import {
@@ -23,17 +22,17 @@ import {
 } from "../../services/reducers/burger-constructor-slice";
 import {fetchOrder} from "../../services/reducers/order-slice";
 import {useNavigate} from "react-router-dom";
-import {TIngredient, TIngredientConstructor} from "../../utils/types";
+import {TIngredient, TIngredientConstructor, useAppDispatch, useAppSelector} from "../../utils/types";
 
 type TCollectedProps = { isDropIngredient: boolean; };
 
 export default function BurgerConstructor() {
-    const burgerConstructor: TIngredientConstructor = useSelector(burgerConstructorSelector);
-    const total = useSelector(orderTotalSelector);
-    const order = useSelector(orderSelector);
-    const user = useSelector(userSelector);
+    const burgerConstructor: TIngredientConstructor = useAppSelector(burgerConstructorSelector);
+    const total = useAppSelector(orderTotalSelector);
+    const order = useAppSelector(orderSelector);
+    const user = useAppSelector(userSelector);
     const navigate = useNavigate();
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     const {modalState, openModal, closeModal} = useModal();
 

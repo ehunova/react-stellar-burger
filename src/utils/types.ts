@@ -1,4 +1,6 @@
 import {Location} from "react-router-dom";
+import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
+import {AppDispatch, RootState} from "../services/store";
 
 export type TIngredient = {
     _id: string;
@@ -47,3 +49,7 @@ export type TResetPass = {
 }
 
 export type TFromLocation = { from: string, background?: Location<TFromLocation> };
+
+type DispatchFunc = () => AppDispatch;
+export const useAppDispatch: DispatchFunc = useDispatch;
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;

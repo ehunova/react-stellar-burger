@@ -2,11 +2,10 @@ import React from "react";
 import styles from "./ingredient.module.css";
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import clsx from "clsx";
-import {useSelector} from "react-redux";
 import {useDrag} from "react-dnd";
 import {burgerConstructorSelector} from "../../services/actions/actionsSelector";
 import {Link, Location, useLocation} from "react-router-dom";
-import {TFromLocation, TIngredient, TIngredientConstructor} from "../../utils/types";
+import {TFromLocation, TIngredient, TIngredientConstructor, useAppSelector} from "../../utils/types";
 
 type TIngredientProps = {
     ingredient: TIngredient;
@@ -15,7 +14,7 @@ type TIngredientProps = {
 type TCollectedProps = { isDrag: boolean; };
 
 export default function Ingredient({ingredient}: TIngredientProps) {
-    const burgerConstructor: TIngredientConstructor = useSelector(burgerConstructorSelector);
+    const burgerConstructor: TIngredientConstructor = useAppSelector(burgerConstructorSelector);
     const location: Location<TFromLocation> = useLocation();
 
     function calculateCount(): number {

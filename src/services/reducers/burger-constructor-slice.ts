@@ -1,6 +1,7 @@
 import {createSlice} from "@reduxjs/toolkit";
+import {TIngredientConstructor} from "../../utils/types";
 
-const initialState = {
+const initialState: TIngredientConstructor = {
     bun: null,
     filling: [],
 };

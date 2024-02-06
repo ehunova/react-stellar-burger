@@ -1,15 +1,14 @@
 import styles from "../profile-edit/profile-edit.module.css";
 import React, {FormEvent} from "react";
 import {Button, EmailInput, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
-import {useDispatch, useSelector} from "react-redux";
 import {userSelector} from "../../services/actions/actionsSelector";
 import {fetchUpdateUser} from "../../services/reducers/auth-slice";
-import {TUserUpdate} from "../../utils/types";
+import {TUserUpdate, useAppDispatch, useAppSelector} from "../../utils/types";
 import {useForm} from "../../hooks/use-form";
 
 export default function ProfileEdit() {
-    const user = useSelector(userSelector);
-    const dispatch = useDispatch();
+    const user = useAppSelector(userSelector);
+    const dispatch = useAppDispatch();
 
     const {form, onChange, reset} = useForm<TUserUpdate>({
         name: user.name,

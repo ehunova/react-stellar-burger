@@ -3,10 +3,9 @@ import styles from "./ingredient-constructor.module.css";
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useDrag, useDrop} from "react-dnd";
 import clsx from "clsx";
-import {useDispatch, useSelector} from "react-redux";
 import {burgerConstructorSelector} from "../../services/actions/actionsSelector";
 import {moveFillingElement} from "../../services/reducers/burger-constructor-slice";
-import {TIngredient, TIngredientConstructor} from "../../utils/types";
+import {TIngredient, TIngredientConstructor, useAppDispatch, useAppSelector} from "../../utils/types";
 
 type TCollectedProps = { isDrag: boolean; };
 type TIngredientConstructorProps = {
@@ -16,8 +15,8 @@ type TIngredientConstructorProps = {
 }
 
 export default function IngredientConstructor({ingredient, handleRemove, index}: TIngredientConstructorProps) {
-    const burgerConstructor: TIngredientConstructor = useSelector(burgerConstructorSelector);
-    const dispatch = useDispatch();
+    const burgerConstructor: TIngredientConstructor = useAppSelector(burgerConstructorSelector);
+    const dispatch = useAppDispatch();
 
     const [{isDrag}, dragRef] = useDrag<TIngredient, unknown, TCollectedProps>({
         type: 'sort',

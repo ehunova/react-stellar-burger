@@ -3,12 +3,11 @@ import styles from './burger-ingredients.module.css';
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import clsx from "clsx";
 import Ingredient from "../ingredient/ingredient";
-import {useSelector} from "react-redux";
 import {ingredientsListSelector} from "../../services/actions/actionsSelector";
-import {TIngredient} from "../../utils/types";
+import {TIngredient, useAppSelector} from "../../utils/types";
 
 export default function BurgerIngredients() {
-    const ingredients: TIngredient[] = useSelector(ingredientsListSelector);
+    const ingredients: TIngredient[] = useAppSelector(ingredientsListSelector);
     const [current, setCurrent] = useState<string>("bun");
 
     const tabRef = useRef<HTMLDivElement>(null);

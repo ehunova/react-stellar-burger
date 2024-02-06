@@ -30,11 +30,22 @@ export type TUser = {
 
 export type TOrder = {
     name: string;
-    order: {
-        number: number;
-    }
+    order: TOrderNumber;
 }
+export type TOrderNumber = {
+    number: number;
+}
+
 export type TUserRegistration = TUser & { password: string };
+
+export type TUserTokens = {
+    accessToken: string;
+    refreshToken: string;
+}
+
+export type TUserData = {user: TUser};
+
+export type TUserWithTokens = TUserTokens & TUserData;
 export type TUserUpdate = TUser & { password: string };
 export type TUserLogIn = {
     email: string;

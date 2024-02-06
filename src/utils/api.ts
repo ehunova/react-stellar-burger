@@ -1,5 +1,16 @@
 import {request, TBasicResponse, TBasicResponseWithMessage} from "./utils";
-import {TForgotPass, TIngredient, TOrder, TResetPass, TUser, TUserLogIn, TUserRegistration, TUserUpdate} from "./types";
+import {
+    TForgotPass,
+    TIngredient,
+    TOrder,
+    TResetPass,
+    TUserData,
+    TUserLogIn,
+    TUserRegistration,
+    TUserTokens,
+    TUserUpdate,
+    TUserWithTokens
+} from "./types";
 
 type TGetIngredientsListResponse = TBasicResponse & {
     data: TIngredient[];
@@ -21,12 +32,6 @@ export function createOrder(ingredientIdList: Array<string>): Promise<TBasicResp
     })
 }
 
-type TUserTokens = {
-    accessToken: string;
-    refreshToken: string;
-}
-type TUserWithTokens = TUser & TUserTokens;
-
 export function registrationUser(user: TUserRegistration): Promise<TBasicResponse & TUserWithTokens> {
     return request(`/auth/register`, {
         method: "POST",
@@ -41,7 +46,7 @@ export function registrationUser(user: TUserRegistration): Promise<TBasicRespons
     })
 }
 
-export function getUserInfo(): Promise<TBasicResponse & TUser> {
+export function getUserInfo(): Promise<TBasicResponse & TUserData> {
     return requestWithRefresh(`/auth/user`, {
         method: "GET",
         headers: {
@@ -51,7 +56,7 @@ export function getUserInfo(): Promise<TBasicResponse & TUser> {
     })
 }
 
-export function updateUserInfo(user: TUserUpdate): Promise<TBasicResponse & TUser> {
+export function updateUserInfo(user: TUserUpdate): Promise<TBasicResponse & TUserData> {
     return requestWithRefresh(`/auth/user`, {
         method: "PATCH",
         headers: {

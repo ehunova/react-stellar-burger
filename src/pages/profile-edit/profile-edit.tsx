@@ -11,8 +11,8 @@ export default function ProfileEdit() {
     const dispatch = useAppDispatch();
 
     const {form, onChange, reset} = useForm<TUserUpdate>({
-        name: user.name,
-        email: user.email,
+        name: user?.name ?? '',
+        email: user?.email ?? '',
         password: "",
     });
 

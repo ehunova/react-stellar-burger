@@ -1,4 +1,4 @@
-import React, {ChangeEvent, FormEvent, useState} from "react";
+import React, {FormEvent} from "react";
 import styles from "../registration/registration.module.css";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import clsx from "clsx";
@@ -6,24 +6,20 @@ import {Link, Location, Navigate, useLocation, useNavigate} from "react-router-d
 import {useDispatch} from "react-redux";
 import {fetchResetPass} from "../../services/reducers/auth-slice";
 import {TFromLocation, TResetPass} from "../../utils/types";
+import {useForm} from "../../hooks/use-form";
 
 export default function ResetPassword() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const location: Location<TFromLocation> = useLocation();
 
-    const [form, setFormItem] = useState<TResetPass>({
+    const {form, onChange} = useForm<TResetPass>({
         password: "",
         code: "",
     });
 
     if (!location.state || location.state.from !== "/forgot-password") {
         return <Navigate to={'/'}/>
-    }
-
-    const onChange = (event: ChangeEvent<HTMLInputElement>) => {
-        setFormItem({...form, [event.target.name]: event.target.value});
-        return form;
     }
 
     const onSubmit = (event: FormEvent<HTMLFormElement>) => {

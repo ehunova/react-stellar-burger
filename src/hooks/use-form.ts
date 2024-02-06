@@ -1,17 +1,20 @@
-import {ChangeEvent, Dispatch, SetStateAction, useState} from "react";
+import {ChangeEvent, useState} from "react";
 
-type TUseForm = {
-    values: {};
-    handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
-    setValues:  Dispatch<SetStateAction<{}>>;
+type TUseForm<TForm> = {
+    form: TForm;
+    onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+    reset: () => void;
 }
 
-export function useForm(inputValues={}): TUseForm {
-    const [values, setValues] = useState(inputValues);
+export function useForm<TForm>(inputValues: TForm): TUseForm<TForm> {
+    const [form, setValues] = useState<TForm>(inputValues);
 
-    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const onChange = (event: ChangeEvent<HTMLInputElement>) => {
         const {value, name} = event.target;
-        setValues({...values, [name]: value});
+        setValues({...form, [name]: value});
     };
-    return {values, handleChange, setValues};
+
+    const reset = () => setValues(inputValues);
+
+    return {form, onChange, reset};
 }

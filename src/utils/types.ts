@@ -1,3 +1,5 @@
+import {Location} from "react-router-dom";
+
 export type TIngredient = {
     _id: string;
     name: string;
@@ -44,4 +46,4 @@ export type TResetPass = {
     code: string;
 }
 
-export type TFromLocation = { from: string, pathname?: string };
+export type TFromLocation = { from: string, background?: Location<TFromLocation> };

@@ -1,28 +1,21 @@
 import styles from "../profile-edit/profile-edit.module.css";
-import React, {ChangeEvent, FormEvent, useState} from "react";
+import React, {FormEvent} from "react";
 import {Button, EmailInput, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useDispatch, useSelector} from "react-redux";
 import {userSelector} from "../../services/actions/actionsSelector";
 import {fetchUpdateUser} from "../../services/reducers/auth-slice";
 import {TUserUpdate} from "../../utils/types";
+import {useForm} from "../../hooks/use-form";
 
 export default function ProfileEdit() {
     const user = useSelector(userSelector);
     const dispatch = useDispatch();
-    const [form, setFormItem] = useState<TUserUpdate>({
+
+    const {form, onChange, reset} = useForm<TUserUpdate>({
         name: user.name,
         email: user.email,
         password: "",
     });
-
-    const onChange = (event: ChangeEvent<HTMLInputElement>) => {
-        setFormItem({ ...form, [event.target.name]: event.target.value });
-        return form;
-    }
-
-    const cancelEditForm = () => {
-        setFormItem(user);
-    }
 
     const onSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -35,7 +28,7 @@ export default function ProfileEdit() {
             <EmailInput value={form.email || ""} name="email" onChange={onChange} placeholder="Логин" isIcon={true}/>
             <PasswordInput value={form.password || ""} name="password" onChange={onChange} placeholder="Пароль" icon="EditIcon"/>
             <div>
-                <Button htmlType="button" onClick={cancelEditForm} type="secondary">
+                <Button htmlType="button" onClick={reset} type="secondary">
                     Отмена
                 </Button>
                 <Button htmlType="submit" type="primary" size="medium">

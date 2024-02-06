@@ -5,7 +5,7 @@ import {TFromLocation, TUser} from "../../utils/types";
 
 type TProtected = {
     onlyUnAuth: boolean;
-    component: JSX.Element
+    component: JSX.Element;
 }
 
 function Protected({ onlyUnAuth = false, component }: TProtected): JSX.Element | null {
@@ -18,7 +18,7 @@ function Protected({ onlyUnAuth = false, component }: TProtected): JSX.Element |
     }
 
     if (onlyUnAuth && user) {
-        const { from }: TFromLocation = location.state || { from: { pathname: "/" } };
+        const { from } = location.state || { from: "/" };
         return <Navigate to={from} />;
     }
 

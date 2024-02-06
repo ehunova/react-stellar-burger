@@ -1,4 +1,4 @@
-import React, {ChangeEvent, FormEvent, useState} from "react";
+import React, {FormEvent} from "react";
 import styles from "../registration/registration.module.css";
 import {Button, EmailInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import clsx from "clsx";
@@ -6,18 +6,15 @@ import {Link, useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {fetchForgotPass} from "../../services/reducers/auth-slice";
 import {TForgotPass} from "../../utils/types";
+import {useForm} from "../../hooks/use-form";
 
 export default function ForgotPassword() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [form, setFormItem] = useState<TForgotPass>({
+
+    const {form, onChange} = useForm<TForgotPass>({
         email: "",
     });
-
-    const onChange = (event: ChangeEvent<HTMLInputElement>) => {
-        setFormItem({...form, [event.target.name]: event.target.value});
-        return form;
-    }
 
     const onSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();

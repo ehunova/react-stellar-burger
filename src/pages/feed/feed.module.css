@@ -1,0 +1,6 @@
+.orders {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 88px); /*88px - высота header*/
+    width: 600px;
+}

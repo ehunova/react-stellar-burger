@@ -8,6 +8,8 @@ export default function OrderList () {
         <div className={clsx(styles.container)}>
             <div className={clsx(styles.box, "pr-2")}>
                 <OrderCard/>
+                <OrderCard/>
+                <OrderCard/>
             </div>
 
         </div>

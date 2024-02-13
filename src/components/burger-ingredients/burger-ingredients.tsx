@@ -33,7 +33,7 @@ export default function BurgerIngredients() {
         setCurrent(bunPosition === closestPosition ? "bun" : saucePosition === closestPosition ? "sauce" : "main")
     }
 
-    const scrollToRef = (ref: RefObject<HTMLHeadingElement>, refValue: string) => {
+    const scrollToRef = (ref: RefObject<HTMLHeadingElement>, refValue: string): void => {
         if (ref.current) {
             ref.current.scrollIntoView({ behavior: "smooth" });
         }

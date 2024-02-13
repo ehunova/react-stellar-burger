@@ -1,0 +1,30 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+    width: 100%;
+}
+
+.status {
+    display: flex;
+    gap: 36px;
+}
+
+.orders {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    height: 206px;
+    overflow: hidden;
+}
+
+.done {
+    color: #00CCCC;
+}
+
+.ordersCount {
+    text-shadow:
+            0 4px 32px rgba(51, 51, 255, 0.50),
+            0 0 8px rgba(51, 51, 255, 0.25),
+            0 0 16px rgba(51, 51, 255, 0.25);
+}

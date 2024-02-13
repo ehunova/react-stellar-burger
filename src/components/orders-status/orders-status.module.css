@@ -3,7 +3,6 @@
     width: 272px;
     flex-direction: column;
     gap: 8px;
-    height: 152px;
     /*overflow-x: hidden;*/
     /*overflow-y: scroll;*/
     grid-template-columns: repeat(auto-fit, 80px);

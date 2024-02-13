@@ -10,6 +10,10 @@ export default function OrderList () {
                 <OrderCard/>
                 <OrderCard/>
                 <OrderCard/>
+                <OrderCard/>
+                <OrderCard/>
+                <OrderCard/>
+                <OrderCard/>
             </div>
 
         </div>

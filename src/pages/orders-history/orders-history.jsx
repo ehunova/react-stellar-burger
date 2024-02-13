@@ -1,10 +1,10 @@
 import React from "react";
-import OrderCard from "../../components/order-card/order-card";
+import OrderList from "../../components/order-list/order-list";
 
 export default function OrdersHistory () {
     return (
-        <div>
-            <OrderCard/>
-        </div>
+        <>
+            <OrderList/>
+        </>
     )
 }

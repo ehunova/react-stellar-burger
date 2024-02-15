@@ -7,7 +7,7 @@ import {ingredientsListSelector} from "../../services/actions/actionsSelector";
 import {TIngredient, useAppSelector} from "../../utils/types";
 
 export default function BurgerIngredients() {
-    const ingredients: TIngredient[] = useAppSelector(ingredientsListSelector);
+    const ingredients = useAppSelector(ingredientsListSelector);
     const [current, setCurrent] = useState<string>("bun");
 
     const tabRef = useRef<HTMLDivElement>(null);

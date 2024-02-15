@@ -29,11 +29,22 @@ export type TUser = {
 }
 
 export type TOrder = {
+    ingredients: Array<string>;
+    _id: string;
+    status: string;
     name: string;
     order: TOrderNumber;
+    createdAt: string;
+    updatedAt: string;
 }
 export type TOrderNumber = {
     number: number;
+}
+
+export type TOrders = {
+    orders: TOrder[];
+    total?: number;
+    totalToday?: number;
 }
 
 export type TUserRegistration = TUser & { password: string };

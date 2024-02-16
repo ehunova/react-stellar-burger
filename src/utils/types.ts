@@ -29,20 +29,26 @@ export type TUser = {
 }
 
 export type TOrder = {
-    ingredients: Array<string>;
-    _id: string;
-    status: string;
     name: string;
     order: TOrderNumber;
-    createdAt: string;
-    updatedAt: string;
 }
+
 export type TOrderNumber = {
     number: number;
 }
 
+export type TFullOrder = {
+    ingredients: Array<string>;
+    _id: string;
+    status: string;
+    name: string;
+    number: number;
+    createdAt: string;
+    updatedAt: string;
+}
+
 export type TOrders = {
-    orders: TOrder[];
+    orders: TFullOrder[];
     total?: number;
     totalToday?: number;
 }

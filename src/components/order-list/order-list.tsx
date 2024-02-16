@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./order-list.module.css"
-import OrderCard from "../../components/order-card/order-card";
+import OrderCard from "../order-card/order-card";
 import clsx from "clsx";
 import {useAppSelector} from "../../utils/types";
 import {ordersSelector} from "../../services/actions/actionsSelector";

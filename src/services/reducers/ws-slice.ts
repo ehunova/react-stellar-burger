@@ -1,9 +1,9 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {TOrder} from "../../utils/types";
+import {TFullOrder} from "../../utils/types";
 
 type TInitialState = {
     wsConnected: boolean;
-    orders: TOrder[] | [];
+    orders: TFullOrder[] | [];
     total: number | null;
     totalToday: number | null;
     error?: Event;

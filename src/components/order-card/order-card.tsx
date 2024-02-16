@@ -3,26 +3,24 @@ import styles from "./order-card.module.css";
 import clsx from "clsx";
 import {Link, Location, useLocation} from "react-router-dom";
 import {CurrencyIcon, FormattedDate} from "@ya.praktikum/react-developer-burger-ui-components";
-import {TFromLocation, TIngredient, useAppSelector} from "../../utils/types";
+import {TFromLocation, TFullOrder, useAppSelector} from "../../utils/types";
 import {ingredientsListSelector} from "../../services/actions/actionsSelector";
+import {collectOrderIngredients, totalPriceOrder} from "../../utils/utils";
 
-export default function OrderCard({order}) {
-    const location/*: Location<TFromLocation>*/ = useLocation();
+type TOrderCardProps = {
+    order: TFullOrder;
+}
+
+export default function OrderCard({order}: TOrderCardProps) {
+    const location: Location<TFromLocation> = useLocation();
     const path = location.pathname === "/profile/orders";
     const ingredients = useAppSelector(ingredientsListSelector);
 
     const date = new Date(order.createdAt);
     const timeZone = date.getTimezoneOffset() * (-1) / 60;
 
-    let orderIngredients = [];
-    order.ingredients.forEach(idIngredient => {
-        const ingredient = ingredients.find(element => element._id === idIngredient);
-        orderIngredients.push(ingredient);
-    })
-
-    let totalPrice = orderIngredients.reduce(
-        (sum, ingredient) => sum + (ingredient.type === "bun" ? ingredient.price * 2 : ingredient.price),
-        0);
+    let orderIngredients = collectOrderIngredients(order, ingredients);
+    let totalPrice = totalPriceOrder(orderIngredients);
 
     return (
         <Link to={"/"} className={styles.main}/* state={{background: location}} */>

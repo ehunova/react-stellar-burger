@@ -1,11 +1,14 @@
 .container {
-    width: 100%;
     display: flex;
-    align-self: center;
+    width: 100%;
     justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 .loader {
+    display: flex;
+    justify-content: center;
     border: 8px solid #2F2F37;
     border-radius: 50%;
     border-top: 8px solid #8585AD;

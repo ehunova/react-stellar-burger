@@ -23,6 +23,7 @@ import {
 import {fetchOrder} from "../../services/reducers/order-slice";
 import {useNavigate} from "react-router-dom";
 import {TIngredient, TIngredientConstructor, useAppDispatch, useAppSelector} from "../../utils/types";
+import Loader from "../loader/loader";
 
 type TCollectedProps = { isDropIngredient: boolean; };
 
@@ -42,8 +43,10 @@ export default function BurgerConstructor() {
             if (ingredient.type === "bun") {
                 dispatch(setBun(ingredient));
             } else {
-                dispatch(addFilling({...ingredient,
-                    uuid: uuid()}));
+                dispatch(addFilling({
+                    ...ingredient,
+                    uuid: uuid()
+                }));
             }
         },
         collect: (monitor) => ({
@@ -85,7 +88,10 @@ export default function BurgerConstructor() {
     }
 
     const modal = (<Modal onClose={closeModal}>
-        <OrderDetails orderNumber={order.number}/>
+        {
+            !order.number && <Loader/>
+        }
+        {order.number > 0 && <OrderDetails/>}
     </Modal>);
 
     return (

@@ -22,7 +22,7 @@ export default function OrderCard({order}: TOrderCardProps) {
     let orderIngredients = collectOrderIngredients(order, ingredients);
     let totalPrice = totalPriceOrder(orderIngredients);
 
-    const getStatus = () => {
+    const getStatus = (): string => {
         switch (order.status) {
             case "done": {
                 return "Выполнен";

@@ -42,6 +42,12 @@ export const wsMiddleware = (wsActions: TWsAction): Middleware => {
                 socket.onmessage = event => {
                     const { data } = event;
                     const parsedData = JSON.parse(data);
+                    if (!parsedData.success) {
+                        dispatch(wsError(parsedData.message));
+
+                        return
+                    }
+
                     dispatch(wsRequest(parsedData));
                 };
                 socket.onclose = event => {

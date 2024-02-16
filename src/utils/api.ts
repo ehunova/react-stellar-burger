@@ -21,10 +21,11 @@ export function getIngredientsList(): Promise<TGetIngredientsListResponse> {
 }
 
 export function createOrder(ingredientIdList: Array<string>): Promise<TBasicResponse & TOrder> {
-    return request(`/orders`, {
+    return requestWithRefresh(`/orders`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
+            authorization: localStorage.getItem("accessToken") || "",
         },
         body: JSON.stringify({
             "ingredients": ingredientIdList,

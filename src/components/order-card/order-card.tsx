@@ -22,6 +22,23 @@ export default function OrderCard({order}: TOrderCardProps) {
     let orderIngredients = collectOrderIngredients(order, ingredients);
     let totalPrice = totalPriceOrder(orderIngredients);
 
+    const getStatus = () => {
+        switch (order.status) {
+            case "done": {
+                return "Выполнен";
+            }
+            case "pending": {
+                return "Готовится";
+            }
+            case "created": {
+                return "Создан";
+            }
+            default: {
+                return "Отменен";
+            }
+        }
+    }
+
     return (
         <Link to={"/"} className={styles.main}/* state={{background: location}} */>
             <div className={clsx(styles.container, "mt-6 mr-6 mb-6 ml-6")}>
@@ -29,14 +46,24 @@ export default function OrderCard({order}: TOrderCardProps) {
                     <h3 className={"text text_type_digits-default"}>{`#${order.number}`}</h3>
                     <div>
                         <FormattedDate date={date} className={"text text_type_main-default text_color_inactive"}/>
-                        <span className={"text text_type_main-default text_color_inactive"}>{` i-GMT+${timeZone}`}</span>
+                        <span
+                            className={"text text_type_main-default text_color_inactive"}>{` i-GMT+${timeZone}`}</span>
                     </div>
                 </div>
                 <div>
                     <h2 className={"text text_type_main-medium mt-6"}>{order.name}</h2>
                 </div>
                 {
-                    path && <p className={"text text_type_main-default mt-2"}>{order.status}</p>
+                    path && <p className={clsx("text text_type_main-default mt-2",
+                        order?.status === "pending"
+                            ? styles.statusPending
+                            : {color: "#FFF"}
+                    )
+                    }>
+                        {
+                            getStatus()
+                        }
+                    </p>
                 }
 
                 <div className={clsx(styles.details, "mt-6")}>

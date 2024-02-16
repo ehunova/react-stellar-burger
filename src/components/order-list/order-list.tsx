@@ -2,12 +2,13 @@ import React from "react";
 import styles from "./order-list.module.css"
 import OrderCard from "../order-card/order-card";
 import clsx from "clsx";
-import {useAppSelector} from "../../utils/types";
-import {ordersSelector} from "../../services/actions/actionsSelector";
+import {TFullOrder} from "../../utils/types";
 
-export default function OrderList () {
-    const orders = useAppSelector(ordersSelector);
+type TOrderListProps = {
+    orders: TFullOrder[];
+}
 
+export default function OrderList ({orders}: TOrderListProps) {
     return (
         <div className={clsx(styles.container)}>
             <div className={clsx(styles.box, "pr-2")}>

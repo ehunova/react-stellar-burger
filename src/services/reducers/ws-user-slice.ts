@@ -1,9 +1,9 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {TOrders} from "../../utils/types";
+import {TFullOrder} from "../../utils/types";
 
 type TInitialState = {
     wsConnected: boolean;
-    orders: TOrders[];
+    orders: TFullOrder[];
     error?: Event;
 }
 

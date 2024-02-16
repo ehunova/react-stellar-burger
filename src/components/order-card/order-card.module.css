@@ -104,3 +104,7 @@
     display: flex;
     gap: 9px;
 }
+
+.statusPending {
+    color: #00CCCC;
+}

@@ -55,15 +55,15 @@ export default function BurgerConstructor() {
         const list = [];
 
         if (burgerConstructor.bun !== null) {
-            list.push(burgerConstructor.bun._id)
+            list.push(burgerConstructor.bun._id);
         }
 
-        burgerConstructor.filling.filter(ingredient => {
+        burgerConstructor.filling.forEach(ingredient => {
             list.push(ingredient._id);
         })
 
         if (burgerConstructor.bun !== null) {
-            list.push(burgerConstructor.bun._id)
+            list.push(burgerConstructor.bun._id);
         }
 
         return list;
@@ -132,7 +132,11 @@ export default function BurgerConstructor() {
                         <CurrencyIcon type="primary"/>
                     </div>
                     <div>
-                        <Button htmlType="button" type="primary" size="medium" onClick={createOrder}>
+                        <Button htmlType="button"
+                                disabled={!burgerConstructor.bun}
+                                type="primary"
+                                size="medium"
+                                onClick={createOrder}>
                             Оформить заказ
                         </Button>
                     </div>

@@ -63,7 +63,7 @@ function App() {
                     <Route path="/ingredient/:id" element={<ModalIngredient/>}/>
                     <Route path="/feed/:id" element={<ModalOrderId/>}/>
                     <Route path="/profile/orders/:id" element={<ModalOrderId/>}/>
-                    <Route path="/order" element={<ModalCreateOrder/>}/>
+                    <Route path="/order" element={<OnlyAuth component={<ModalCreateOrder/>} />} />
                 </Routes>
             )}
         </div>

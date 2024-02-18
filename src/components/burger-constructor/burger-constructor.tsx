@@ -122,7 +122,7 @@ export default function BurgerConstructor() {
                         <CurrencyIcon type="primary"/>
                     </div>
                     <div>
-                        <Link to={`/order`} state={{background: location}} onClick={createOrder}>
+                        <Link to={`/`} state={{background: location}} onClick={createOrder}>
                             <Button htmlType="button"
                                     disabled={!burgerConstructor.bun}
                                     type="primary"

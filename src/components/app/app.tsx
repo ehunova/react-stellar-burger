@@ -41,10 +41,9 @@ function App() {
             <Routes location={background || location}>
                 <Route path="/" element={<AppHeader/>}>
                     <Route index element={<Main/>}/>
-                    <Route path="/order" element={<OnlyAuth component={<OrderCreatePage/>} />} />
                     <Route path="/ingredient/:id" element={<IngredientPage/>}/>
                     <Route path="/feed" element={<Feed/>}/>
-                    <Route path="/order" element={<OrderCreatePage/>} />
+                    <Route path="/order" element={<OnlyAuth component={<OrderCreatePage/>} />} />
                     <Route path="/feed/:id" element={<OrderIdPage/>}/>
                     <Route path="/login" element={<OnlyUnAuth component={<Login />} />} />
                     <Route path="/register" element={<OnlyUnAuth component={<Registration/>} />} />
@@ -63,7 +62,7 @@ function App() {
                     <Route path="/ingredient/:id" element={<ModalIngredient/>}/>
                     <Route path="/feed/:id" element={<ModalOrderId/>}/>
                     <Route path="/profile/orders/:id" element={<ModalOrderId/>}/>
-                    <Route path="/order" element={<OnlyAuth component={<ModalCreateOrder/>} />} />
+                    <Route path="/" element={<OnlyAuth component={<ModalCreateOrder/>} />} />
                 </Routes>
             )}
         </div>

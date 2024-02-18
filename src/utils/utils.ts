@@ -1,5 +1,5 @@
 import {baseUrl} from "../services/constants/constants";
-import {TFullOrder, TIngredient} from "./types";
+import {TFullOrder, TIngredient, TOrderInfo} from "./types";
 
 export type TBasicResponse = { success: boolean };
 export type TBasicResponseWithMessage = TBasicResponse & { message: string };
@@ -16,7 +16,7 @@ function checkResponse<TResponse>(response: Response): Promise<TResponse> {
     return Promise.reject(`Ошибка: ${response.status}`);
 }
 
-export function collectOrderIngredients(order: TFullOrder, ingredients: TIngredient[]): TIngredient[] {
+export function collectOrderIngredients(order: TFullOrder | TOrderInfo, ingredients: TIngredient[]): TIngredient[] {
     let orderIngredients: TIngredient[] = [];
     order.ingredients.forEach(idIngredient => {
         const ingredient = ingredients.find(element => element._id === idIngredient);
@@ -31,4 +31,21 @@ export function totalPriceOrder (orderIngredients: TIngredient[]): number {
     return orderIngredients.reduce(
         (sum, ingredient) => sum + (ingredient.type === "bun" ? ingredient.price * 2 : ingredient.price),
         0);
+}
+
+export function getStatus(order: TFullOrder): string {
+    switch (order.status) {
+        case "done": {
+            return "Выполнен";
+        }
+        case "pending": {
+            return "Готовится";
+        }
+        case "created": {
+            return "Создан";
+        }
+        default: {
+            return "Отменен";
+        }
+    }
 }

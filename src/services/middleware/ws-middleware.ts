@@ -1,4 +1,4 @@
-import { Middleware, MiddlewareAPI } from "redux";
+import {Middleware, MiddlewareAPI} from "redux";
 import {AppDispatch, RootState} from "../store";
 import {ActionCreatorWithoutPayload, ActionCreatorWithPayload} from "@reduxjs/toolkit";
 

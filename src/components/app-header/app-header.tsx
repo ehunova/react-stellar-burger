@@ -15,16 +15,28 @@ export default function AppHeader() {
             <header className={clsx("pt-4 pb-4", styles.header)}>
                 <nav className={styles.container}>
                     <div className={styles.navigations}>
-                        <NavigationLink className={'text text_type_main-default pl-5 pr-5 pb-4 pt-4 mr-2'} link="/">
+                        <NavigationLink className={"pl-5 pr-5 pb-4 pt-4 mr-2"} link="/">
                             <>
                                 <BurgerIcon type={path === "/" ? "primary" : "secondary"}/>
-                                <span className="ml-2">Конструктор</span>
+                                <span className={clsx("text text_type_main-default ml-2",
+                                    path === "/"
+                                        ? styles.active
+                                        : styles.inactive
+                                )}>
+                                    Конструктор
+                                </span>
                             </>
                         </NavigationLink>
-                        <NavigationLink className={'text text_type_main-default pl-5 pr-5 pb-4 pt-4 mr-2'} link="/feed">
+                        <NavigationLink className={"pl-5 pr-5 pb-4 pt-4 mr-2"} link="/feed">
                             <>
                                 <ListIcon type={path === "/feed" ? "primary" : "secondary"}/>
-                                <span className="ml-2">Лента заказов</span>
+                                <span className={clsx("text text_type_main-default ml-2",
+                                    path === "/feed"
+                                        ? styles.active
+                                        : styles.inactive
+                                )}>
+                                    Лента заказов
+                                </span>
                             </>
 
                         </NavigationLink>
@@ -35,10 +47,16 @@ export default function AppHeader() {
                         </NavigationLink>
                     </div>
                     <div>
-                        <NavigationLink className={'text text_type_main-default pl-5 pr-5 pb-4 pt-4 mr-2'} link="/profile">
+                        <NavigationLink className={"pl-5 pr-5 pb-4 pt-4 mr-2"} link="/profile">
                             <>
                                 <ProfileIcon type={path === "/profile" ? "primary" : "secondary"}/>
-                                <span className="ml-2">Личный кабинет</span>
+                                <span className={clsx("text text_type_main-default ml-2",
+                                    path === "/profile"
+                                        ? styles.active
+                                        : styles.inactive
+                                )}>
+                                    Личный кабинет
+                                </span>
                             </>
                         </NavigationLink>
                     </div>

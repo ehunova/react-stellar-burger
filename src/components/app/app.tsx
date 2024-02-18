@@ -18,6 +18,10 @@ import {fetchUserInfo} from "../../services/reducers/auth-slice";
 import OrdersHistory from "../../pages/orders-history/orders-history";
 import Feed from "../../pages/feed/feed";
 import {TFromLocation, useAppDispatch} from "../../utils/types";
+import OrderCreatePage from "../../pages/order-create-page/order-create-page";
+import OrderIdPage from "../../pages/order-id-page/order-id-page";
+import ModalOrderId from "../modal-order-id/modal-order-id";
+import ModalCreateOrder from "../modal-create-order/modal-create-order";
 
 function App() {
     const dispatch = useAppDispatch();
@@ -37,8 +41,11 @@ function App() {
             <Routes location={background || location}>
                 <Route path="/" element={<AppHeader/>}>
                     <Route index element={<Main/>}/>
+                    <Route path="/order" element={<OnlyAuth component={<OrderCreatePage/>} />} />
                     <Route path="/ingredient/:id" element={<IngredientPage/>}/>
                     <Route path="/feed" element={<Feed/>}/>
+                    <Route path="/order" element={<OrderCreatePage/>} />
+                    <Route path="/feed/:id" element={<OrderIdPage/>}/>
                     <Route path="/login" element={<OnlyUnAuth component={<Login />} />} />
                     <Route path="/register" element={<OnlyUnAuth component={<Registration/>} />} />
                     <Route path="/forgot-password" element={<OnlyUnAuth component={<ForgotPassword/>} />} />
@@ -47,12 +54,16 @@ function App() {
                         <Route path="/profile" element={<ProfileEdit/>} />
                         <Route path="/profile/orders" element={<OrdersHistory/>} />
                     </Route>
+                    <Route path="/profile/orders/:id" element={<OnlyAuth component={<OrderIdPage/>} />} />
                     <Route path="*" element={<NotFound404/>}/>
                 </Route>
             </Routes>
             {background && (
                 <Routes>
                     <Route path="/ingredient/:id" element={<ModalIngredient/>}/>
+                    <Route path="/feed/:id" element={<ModalOrderId/>}/>
+                    <Route path="/profile/orders/:id" element={<ModalOrderId/>}/>
+                    <Route path="/order" element={<ModalCreateOrder/>}/>
                 </Routes>
             )}
         </div>

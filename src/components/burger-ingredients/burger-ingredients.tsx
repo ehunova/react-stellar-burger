@@ -4,7 +4,7 @@ import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import clsx from "clsx";
 import Ingredient from "../ingredient/ingredient";
 import {ingredientsListSelector} from "../../services/actions/actionsSelector";
-import {TIngredient, useAppSelector} from "../../utils/types";
+import {useAppSelector} from "../../utils/types";
 
 export default function BurgerIngredients() {
     const ingredients = useAppSelector(ingredientsListSelector);

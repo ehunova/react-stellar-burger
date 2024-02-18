@@ -5,7 +5,7 @@ import {Link, Location, useLocation} from "react-router-dom";
 import {CurrencyIcon, FormattedDate} from "@ya.praktikum/react-developer-burger-ui-components";
 import {TFromLocation, TFullOrder, useAppSelector} from "../../utils/types";
 import {ingredientsListSelector} from "../../services/actions/actionsSelector";
-import {collectOrderIngredients, totalPriceOrder} from "../../utils/utils";
+import {collectOrderIngredients, getStatus, totalPriceOrder} from "../../utils/utils";
 
 type TOrderCardProps = {
     order: TFullOrder;
@@ -22,25 +22,12 @@ export default function OrderCard({order}: TOrderCardProps) {
     let orderIngredients = collectOrderIngredients(order, ingredients);
     let totalPrice = totalPriceOrder(orderIngredients);
 
-    const getStatus = (): string => {
-        switch (order.status) {
-            case "done": {
-                return "Выполнен";
-            }
-            case "pending": {
-                return "Готовится";
-            }
-            case "created": {
-                return "Создан";
-            }
-            default: {
-                return "Отменен";
-            }
-        }
-    }
+    const status = getStatus(order);
+
+    const getPath = !path ? `/feed/${order.number}` : `/profile/orders/${order.number}`;
 
     return (
-        <Link to={"/"} className={styles.main}/* state={{background: location}} */>
+        <Link to={getPath} className={styles.main} state={{background: location}}>
             <div className={clsx(styles.container, "mt-6 mr-6 mb-6 ml-6")}>
                 <div className={clsx(styles.head)}>
                     <h3 className={"text text_type_digits-default"}>{`#${order.number}`}</h3>
@@ -61,7 +48,7 @@ export default function OrderCard({order}: TOrderCardProps) {
                     )
                     }>
                         {
-                            getStatus()
+                            status
                         }
                     </p>
                 }
@@ -72,9 +59,8 @@ export default function OrderCard({order}: TOrderCardProps) {
                             orderIngredients.slice(0, 5).map((ingredient, index) => {
                                 return (
                                     <div key={index} className={styles.iconContainer}>
-                                        <img alt="Фото" src={ingredient.image} className={styles.icon}></img>
+                                        <img alt={ingredient.name} src={ingredient.image} className={styles.icon}></img>
                                     </div>
-
                                 )
                             })
                         }

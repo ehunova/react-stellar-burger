@@ -1,0 +1,79 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 640px;
+    align-self: center;
+}
+
+.number {
+    align-self: center;
+}
+
+.statusDone {
+    color: #00CCCC;
+}
+
+.ingredients {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-height: 312px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    list-style-type: none;
+    padding: 0;
+}
+
+.ingredients::-webkit-scrollbar {
+    width: 8px;
+    background-color: #2F2F37;
+}
+
+.ingredients::-webkit-scrollbar-thumb {
+    background-color: #8585AD;
+}
+
+.ingredient {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    width: 608px;
+}
+
+.info {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}
+
+.iconContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    border: 2px solid #4C4CFF;
+    border-radius: 50%;
+    background: #131316;
+}
+
+.icon {
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    object-fit: cover;
+}
+
+.price {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    gap: 9px;
+}
+
+.total {
+    display: flex;
+    justify-content: space-between;
+}

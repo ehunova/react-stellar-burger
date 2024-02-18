@@ -3,17 +3,10 @@ import {Button, ConstructorElement, CurrencyIcon,} from "@ya.praktikum/react-dev
 import styles from "./burger-constructor.module.css";
 import clsx from "clsx";
 import IngredientConstructor from "../ingredient-constructor/ingredient-constructor";
-import Modal from "../modal/modal";
-import OrderDetails from "../order-details/order-details";
 import useModal from "../../hooks/use-modal";
 import {useDrop} from "react-dnd";
 import {v4 as uuid} from "uuid";
-import {
-    burgerConstructorSelector,
-    orderSelector,
-    orderTotalSelector,
-    userSelector
-} from "../../services/actions/actionsSelector";
+import {burgerConstructorSelector, orderTotalSelector, userSelector} from "../../services/actions/actionsSelector";
 import {
     addFilling,
     clearConstructor,
@@ -21,21 +14,20 @@ import {
     setBun
 } from "../../services/reducers/burger-constructor-slice";
 import {fetchOrder} from "../../services/reducers/order-slice";
-import {useNavigate} from "react-router-dom";
-import {TIngredient, TIngredientConstructor, useAppDispatch, useAppSelector} from "../../utils/types";
-import Loader from "../loader/loader";
+import {Link, Location, useLocation, useNavigate} from "react-router-dom";
+import {TFromLocation, TIngredient, TIngredientConstructor, useAppDispatch, useAppSelector} from "../../utils/types";
 
 type TCollectedProps = { isDropIngredient: boolean; };
 
 export default function BurgerConstructor() {
     const burgerConstructor: TIngredientConstructor = useAppSelector(burgerConstructorSelector);
     const total = useAppSelector(orderTotalSelector);
-    const order = useAppSelector(orderSelector);
     const user = useAppSelector(userSelector);
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
+    const location: Location<TFromLocation> = useLocation();
 
-    const {modalState, openModal, closeModal} = useModal();
+    const { openModal } = useModal();
 
     const [{isDropIngredient}, dropRefIngredient] = useDrop<TIngredient, unknown, TCollectedProps>({
         accept: "ingredient",
@@ -87,16 +79,8 @@ export default function BurgerConstructor() {
         dispatch(clearConstructor());
     }
 
-    const modal = (<Modal onClose={closeModal}>
-        {
-            !order.number && <Loader/>
-        }
-        {order.number > 0 && <OrderDetails/>}
-    </Modal>);
-
     return (
-        <>
-            <section className={clsx(styles.section, "mt-25 ml-4")}>
+        <section className={clsx(styles.section, "mt-25 ml-4")}>
                 <div className={clsx(styles.container, isDropIngredient ? styles.dragging : '')}
                      ref={dropRefIngredient}>
                     <div className={"ml-8"}>
@@ -138,17 +122,17 @@ export default function BurgerConstructor() {
                         <CurrencyIcon type="primary"/>
                     </div>
                     <div>
-                        <Button htmlType="button"
-                                disabled={!burgerConstructor.bun}
-                                type="primary"
-                                size="medium"
-                                onClick={createOrder}>
-                            Оформить заказ
-                        </Button>
+                        <Link to={`/order`} state={{background: location}} onClick={createOrder}>
+                            <Button htmlType="button"
+                                    disabled={!burgerConstructor.bun}
+                                    type="primary"
+                                    size="medium"
+                                    >
+                                Оформить заказ
+                            </Button>
+                        </Link>
                     </div>
                 </div>
             </section>
-            {modalState && modal}
-        </>
     )
 }

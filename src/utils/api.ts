@@ -3,6 +3,7 @@ import {
     TForgotPass,
     TIngredient,
     TOrder,
+    TOrderInfo,
     TResetPass,
     TUserData,
     TUserLogIn,
@@ -16,8 +17,16 @@ type TGetIngredientsListResponse = TBasicResponse & {
     data: TIngredient[];
 };
 
+type TGetOrderInfoResponse = TBasicResponse & {
+    orders: TOrderInfo[];
+}
+
 export function getIngredientsList(): Promise<TGetIngredientsListResponse> {
     return request<TGetIngredientsListResponse>(`/ingredients`);
+}
+
+export function getOrderInfo(number: string): Promise<TGetOrderInfoResponse> {
+    return request<TGetOrderInfoResponse>(`/orders/${number}`);
 }
 
 export function createOrder(ingredientIdList: Array<string>): Promise<TBasicResponse & TOrder> {

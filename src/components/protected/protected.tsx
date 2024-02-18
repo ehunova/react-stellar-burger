@@ -1,6 +1,6 @@
 import {Location, Navigate, useLocation} from "react-router-dom";
 import {isAuthCheckedSelector, userSelector} from "../../services/actions/actionsSelector";
-import {TFromLocation, TUser, useAppSelector} from "../../utils/types";
+import {TFromLocation, useAppSelector} from "../../utils/types";
 
 type TProtected = {
     onlyUnAuth: boolean;

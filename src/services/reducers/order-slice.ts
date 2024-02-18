@@ -3,7 +3,7 @@ import {createOrder} from "../../utils/api";
 import {TOrderNumber} from "../../utils/types";
 
 const initialState: TOrderNumber = {
-    number: 0
+    number: 0,
 };
 
 export const fetchOrder = createAsyncThunk(

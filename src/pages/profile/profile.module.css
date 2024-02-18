@@ -23,6 +23,14 @@
     height: 64px;
 }
 
+.linkActive {
+    color: #F2F2F3;
+}
+
+.linkInactive {
+    color: #8585AD;
+}
+
 .text {
     text-align: left;
     color: #8585AD;

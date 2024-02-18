@@ -2,6 +2,7 @@ import {configureStore} from "@reduxjs/toolkit";
 import ingredientsReducer from "./reducers/ingredients-slice";
 import burgerConstructorReducer from "./reducers/burger-constructor-slice";
 import orderReducer from "./reducers/order-slice";
+import orderInfoReducer from './reducers/order-info-slice';
 import authReducer from "./reducers/auth-slice";
 import wsReducer, {wsClose, wsError, wsOpen, wsRequest} from "./reducers/ws-slice";
 import wsUserReducer, {wsUserClose, wsUserError, wsUserOpen, wsUserRequest} from "./reducers/ws-user-slice";
@@ -33,6 +34,7 @@ export const store = configureStore({
         ingredientsList: ingredientsReducer,
         burgerConstructor: burgerConstructorReducer,
         order: orderReducer,
+        orderInfo: orderInfoReducer,
         auth: authReducer,
         wsOrders: wsReducer,
         wsUserOrders: wsUserReducer,

@@ -13,6 +13,7 @@ export default function IngredientPage() {
 
     return (
         <div className={styles.container}>
+            <h2 className="text text_type_main-large">Детали ингредиента</h2>
             {
                 ingredient && (
                     <IngredientInfo ingredient={ingredient}/>

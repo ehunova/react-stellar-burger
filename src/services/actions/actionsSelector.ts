@@ -14,3 +14,8 @@ export const orderTotalSelector = (store: RootState) =>
 
 export const isAuthCheckedSelector = (store: RootState) => store.auth.isAuthChecked;
 export const userSelector = (store: RootState) => store.auth.user;
+export const ordersSelector = (store: RootState) => store.wsOrders.orders;
+export const totalSelector = (store: RootState) => store.wsOrders.total;
+export const totalTodaySelector = (store: RootState) => store.wsOrders.totalToday;
+export const userOrdersSelector = (store: RootState) => store.wsUserOrders.orders;
+export const orderInfoSelector = (store: RootState) => store.orderInfo.info;

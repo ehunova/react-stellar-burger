@@ -1,0 +1,110 @@
+.main {
+    min-width: 584px;
+    width: 100%;
+    max-width: 844px;
+    border-radius: 40px;
+    background-color: #1C1C21;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: #F2F2F3;
+}
+
+.head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.iconsList {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.iconContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    position: relative;
+    box-sizing: border-box;
+    border: 2px solid #4C4CFF;
+    border-radius: 50%;
+    background: #131316;
+    z-index: 6;
+}
+
+.iconContainer:nth-of-type(2) {
+    position: absolute;
+    left: 48px;
+    z-index: 5;
+}
+
+.iconContainer:nth-of-type(3) {
+    position: absolute;
+    left: 96px;
+    z-index: 4;
+}
+
+.iconContainer:nth-of-type(4) {
+    position: absolute;
+    left: 144px;
+    z-index: 3;
+}
+
+.iconContainer:nth-of-type(5) {
+    position: absolute;
+    left: 192px;
+    z-index: 2;
+}
+
+.iconContainer:nth-of-type(6) {
+    position: absolute;
+    left: 240px;
+    z-index: 0;
+}
+
+.count {
+    z-index: 1;
+    background-color: rgba(28, 28, 33, 0.8);
+    position: absolute;
+    /*left: 240px;*/
+
+}
+
+.countText {
+    color: #F2F2F3;
+    position: absolute;
+}
+
+.icon {
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    object-fit: cover;
+    position: relative;
+}
+
+.details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+}
+
+.total {
+    display: flex;
+    gap: 9px;
+}
+
+.statusPending {
+    color: #00CCCC;
+}

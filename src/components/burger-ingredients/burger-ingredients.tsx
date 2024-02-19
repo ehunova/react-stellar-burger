@@ -1,13 +1,13 @@
-import React, {useRef, useState} from "react";
+import React, {RefObject, useRef, useState} from "react";
 import styles from './burger-ingredients.module.css';
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import clsx from "clsx";
 import Ingredient from "../ingredient/ingredient";
 import {ingredientsListSelector} from "../../services/actions/actionsSelector";
-import {TIngredient, useAppSelector} from "../../utils/types";
+import {useAppSelector} from "../../utils/types";
 
 export default function BurgerIngredients() {
-    const ingredients: TIngredient[] = useAppSelector(ingredientsListSelector);
+    const ingredients = useAppSelector(ingredientsListSelector);
     const [current, setCurrent] = useState<string>("bun");
 
     const tabRef = useRef<HTMLDivElement>(null);
@@ -30,15 +30,22 @@ export default function BurgerIngredients() {
 
         const closestPosition = Math.min(bunPosition, saucePosition, mainPosition);
 
-        setCurrent(bunPosition === closestPosition ? 'bun' : saucePosition === closestPosition ? 'sauce' : 'main')
+        setCurrent(bunPosition === closestPosition ? "bun" : saucePosition === closestPosition ? "sauce" : "main")
     }
+
+    const scrollToRef = (ref: RefObject<HTMLHeadingElement>, refValue: string): void => {
+        if (ref.current) {
+            ref.current.scrollIntoView({ behavior: "smooth" });
+        }
+        setCurrent(refValue);
+    };
 
     return (
         <div className={styles.container}>
             <div className={styles.tab} ref={tabRef}>
-                <Tab value="bun" active={current === "bun"} onClick={setCurrent}>Булки</Tab>
-                <Tab value="sauce" active={current === "sauce"} onClick={setCurrent}>Соусы</Tab>
-                <Tab value="main" active={current === "main"} onClick={setCurrent}>Начинки</Tab>
+                <Tab value="bun" active={current === "bun"} onClick={() => scrollToRef(bunRef, "bun")}>Булки</Tab>
+                <Tab value="sauce" active={current === "sauce"} onClick={() => scrollToRef(sauceRef, "sauce")}>Соусы</Tab>
+                <Tab value="main" active={current === "main"} onClick={() => scrollToRef(mainRef, "main")}>Начинки</Tab>
             </div>
             <div className={clsx(styles.category, "mt-10")} onScroll={scrollListener}>
                 <h2 className={clsx("text text_type_main-medium")} ref={bunRef}>Булки</h2>

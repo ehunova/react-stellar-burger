@@ -1,6 +1,7 @@
 .container {
     display: flex;
     max-width: 1160px;
+    width: 100%;
     margin: 120px auto 0;
     gap: 60px;
     justify-content: start;
@@ -22,6 +23,14 @@
     height: 64px;
 }
 
+.linkActive {
+    color: #F2F2F3;
+}
+
+.linkInactive {
+    color: #8585AD;
+}
+
 .text {
     text-align: left;
     color: #8585AD;
@@ -29,6 +38,7 @@
 
 .content {
     display: flex;
-    max-width: 840px;
+    width: 100%;
+    max-width: 844px;
     min-width: 480px;
 }

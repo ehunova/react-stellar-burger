@@ -1,12 +1,14 @@
 import styles from "../profile/profile.module.css";
 import React from "react";
-import {Outlet} from "react-router-dom";
+import {Location, Outlet, useLocation} from "react-router-dom";
 import NavigationLink from "../../components/navigation-link/navigation-link";
 import clsx from "clsx";
 import {fetchLogOut} from "../../services/reducers/auth-slice";
-import {useAppDispatch} from "../../utils/types";
+import {TFromLocation, useAppDispatch} from "../../utils/types";
 
 export default function Profile() {
+    const location: Location<TFromLocation> = useLocation();
+    const path = location.pathname;
     const dispatch = useAppDispatch();
     const onLogout = () => {
         dispatch(fetchLogOut());
@@ -17,7 +19,12 @@ export default function Profile() {
             <div className={styles.navContainer}>
                 <nav className={styles.navbar}>
                     <NavigationLink className={clsx(styles.link, "text text_type_main-medium")} link="/profile">
-                        <span>Профиль</span>
+                        <span className={path === "/profile"
+                            ? styles.linkActive
+                            : styles.linkInactive
+                        }>
+                            Профиль
+                        </span>
                     </NavigationLink>
                     <NavigationLink className={clsx(styles.link, "text text_type_main-medium")} link="/profile/orders">
                         <span>История заказов</span>

@@ -30,9 +30,15 @@
     display: flex;
     margin: 0 auto;
     max-width: 1280px;
-    max-height: 912px;
+    height: calc(100vh - 88px); /*88px - высота header*/
     overflow-y: hidden;
     width: 100%;
-    align-items: center;
 }
 
+.active {
+    color: #F2F2F3;
+}
+
+.inactive {
+    color: #8585AD;
+}

@@ -50,7 +50,7 @@ const responseApiIngredientsList = {
             "__v": 0
         },
     ]
-}
+};
 
 describe("Ingredients slice", () => {
     test("Get ingredients fulfilled", () => {

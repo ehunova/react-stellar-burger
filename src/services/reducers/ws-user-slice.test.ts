@@ -1,13 +1,11 @@
-import wsSlice, {wsClose, wsError, wsOpen, wsRequest} from "./ws-slice";
+import wsUserSlice, {wsUserClose, wsUserError, wsUserOpen, wsUserRequest} from "./ws-user-slice";
 
 const initialStore = {
     wsConnected: false,
-    orders: [],
-    total: null,
-    totalToday: null
+    orders: []
 };
 
-const responseWSOrders = {
+const responseWSUserOrders = {
     "success": true,
     "orders": [
         {
@@ -47,41 +45,37 @@ const responseWSOrders = {
 
 describe("WS Orders slice", () => {
     test("wsOpen action", () => {
-        expect(wsSlice(initialStore, wsOpen()))
+        expect(wsUserSlice(initialStore, wsUserOpen()))
             .toEqual({
                 ...initialStore,
                 wsConnected: true,
-                error: undefined,
+                error: undefined
             });
     });
     test("wsError action", () => {
-        expect(wsSlice(initialStore, wsError("error")))
+        expect(wsUserSlice(initialStore, wsUserError("error")))
             .toEqual({
                 ...initialStore,
                 wsConnected: false,
-                error: "error",
+                error: "error"
             });
     });
     test("wsRequest action", () => {
-        expect(wsSlice(initialStore, wsRequest(responseWSOrders)))
+        expect(wsUserSlice(initialStore, wsUserRequest(responseWSUserOrders)))
             .toEqual({
                 wsConnected: true,
-                orders: responseWSOrders.orders,
-                total: responseWSOrders.total,
-                totalToday: responseWSOrders.totalToday,
-                error: undefined,
+                orders: responseWSUserOrders.orders,
+                error: undefined
             });
     });
     test("wsClose action", () => {
-        expect(wsSlice(
+        expect(wsUserSlice(
                 {
                     wsConnected: true,
-                    orders: responseWSOrders.orders,
-                    total: responseWSOrders.total,
-                    totalToday: responseWSOrders.totalToday,
-                    error: undefined,
+                    orders: responseWSUserOrders.orders,
+                    error: undefined
                 },
-                wsClose()
+                wsUserClose()
             )
         )
             .toEqual(initialStore);

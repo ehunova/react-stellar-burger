@@ -3,7 +3,6 @@ import {Button, ConstructorElement, CurrencyIcon,} from "@ya.praktikum/react-dev
 import styles from "./burger-constructor.module.css";
 import clsx from "clsx";
 import IngredientConstructor from "../ingredient-constructor/ingredient-constructor";
-import useModal from "../../hooks/use-modal";
 import {useDrop} from "react-dnd";
 import {v4 as uuid} from "uuid";
 import {burgerConstructorSelector, orderTotalSelector, userSelector} from "../../services/actions/actionsSelector";
@@ -14,7 +13,7 @@ import {
     setBun
 } from "../../services/reducers/burger-constructor-slice";
 import {fetchOrder} from "../../services/reducers/order-slice";
-import {Link, Location, useLocation, useNavigate} from "react-router-dom";
+import {Location, useLocation, useNavigate} from "react-router-dom";
 import {TFromLocation, TIngredient, TIngredientConstructor, useAppDispatch, useAppSelector} from "../../utils/types";
 
 type TCollectedProps = { isDropIngredient: boolean; };
@@ -26,8 +25,6 @@ export default function BurgerConstructor() {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const location: Location<TFromLocation> = useLocation();
-
-    const { openModal } = useModal();
 
     const [{isDropIngredient}, dropRefIngredient] = useDrop<TIngredient, unknown, TCollectedProps>({
         accept: "ingredient",
@@ -74,65 +71,64 @@ export default function BurgerConstructor() {
             return;
         }
 
+        navigate("/", {state: {background: location}});
         dispatch(fetchOrder(ingredientIdList()));
-        openModal();
         dispatch(clearConstructor());
     }
 
     return (
         <section className={clsx(styles.section, "mt-25 ml-4")}>
-                <div className={clsx(styles.container, isDropIngredient ? styles.dragging : '')}
-                     ref={dropRefIngredient}>
-                    <div className={"ml-8"}>
-                        {burgerConstructor.bun &&
-                            <ConstructorElement
-                                type={"top"} isLocked={true}
-                                text={`${burgerConstructor.bun.name} (верх)`} thumbnail={burgerConstructor.bun.image}
-                                price={burgerConstructor.bun.price}
-                            />
-                        }
-                    </div>
-                    <div className={styles.main}>
-                        {
-                            burgerConstructor.filling.map((ingredient, index) => {
-                                return (<IngredientConstructor
-                                    key={ingredient.uuid}
-                                    ingredient={ingredient}
-                                    handleRemove={
-                                        () => dispatch(removeFillingElement(index))}
-                                    index={index}
-                                />)
-                            })
-                        }
-                    </div>
-                    <div className={"ml-8"}>
-                        {burgerConstructor.bun &&
-                            <ConstructorElement
-                                type={"bottom"} isLocked={true}
-                                text={`${burgerConstructor.bun.name} (низ)`} thumbnail={burgerConstructor.bun.image}
-                                price={burgerConstructor.bun.price}
-                            />
-                        }
-                    </div>
+            <div className={clsx(styles.container, isDropIngredient ? styles.dragging : '')}
+                 ref={dropRefIngredient}>
+                <div className={"ml-8"}>
+                    {burgerConstructor.bun &&
+                        <ConstructorElement
+                            type={"top"} isLocked={true}
+                            text={`${burgerConstructor.bun.name} (верх)`} thumbnail={burgerConstructor.bun.image}
+                            price={burgerConstructor.bun.price}
+                        />
+                    }
                 </div>
+                <div className={styles.main}>
+                    {
+                        burgerConstructor.filling.map((ingredient, index) => {
+                            return (<IngredientConstructor
+                                key={ingredient.uuid}
+                                ingredient={ingredient}
+                                handleRemove={
+                                    () => dispatch(removeFillingElement(index))}
+                                index={index}
+                            />)
+                        })
+                    }
+                </div>
+                <div className={"ml-8"}>
+                    {burgerConstructor.bun &&
+                        <ConstructorElement
+                            type={"bottom"} isLocked={true}
+                            text={`${burgerConstructor.bun.name} (низ)`} thumbnail={burgerConstructor.bun.image}
+                            price={burgerConstructor.bun.price}
+                        />
+                    }
+                </div>
+            </div>
 
-                <div className={clsx(styles.createOrder, "mt-10")}>
-                    <div className={styles.totalPrice}>
-                        <p className="text text_type_digits-medium">{total}</p>
-                        <CurrencyIcon type="primary"/>
-                    </div>
-                    <div>
-                        <Link to={`/`} state={{background: location}} onClick={createOrder}>
-                            <Button htmlType="button"
-                                    disabled={!burgerConstructor.bun}
-                                    type="primary"
-                                    size="medium"
-                                    >
-                                Оформить заказ
-                            </Button>
-                        </Link>
-                    </div>
+            <div className={clsx(styles.createOrder, "mt-10")}>
+                <div className={styles.totalPrice}>
+                    <p className="text text_type_digits-medium">{total}</p>
+                    <CurrencyIcon type="primary"/>
                 </div>
-            </section>
+                <div>
+                    <Button htmlType="button"
+                            disabled={!burgerConstructor.bun}
+                            type="primary"
+                            size="medium"
+                            onClick={createOrder}
+                    >
+                        Оформить заказ
+                    </Button>
+                </div>
+            </div>
+        </section>
     )
 }

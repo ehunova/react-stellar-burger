@@ -42,7 +42,7 @@ export default function OrderInfo({order}: TOrderInfoProps) {
                     orderIngredients.map(ingredient => {
                         let count = order.ingredients?.filter(element => element === ingredient._id).length;
                         return (
-                            <li className={clsx(styles.ingredient, "mr-6")}>
+                            <li className={clsx(styles.ingredient, "mr-6")} key={ingredient._id}>
                                 <div className={styles.info}>
                                     <div className={clsx(styles.iconContainer, "mr-4")}>
                                         <img alt={ingredient.name} src={ingredient.image} className={styles.icon}></img>

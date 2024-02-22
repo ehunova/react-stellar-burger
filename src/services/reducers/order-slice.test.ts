@@ -13,6 +13,13 @@ const responseApiOrder = {
 };
 
 describe("Order slice", () => {
+    test("Get order number after create order post-request pending", () => {
+        expect(orderSlice(initialStore, {
+                type: "order/post/pending"
+            })
+        )
+            .toEqual(initialStore)
+    })
     test("Get order number after create order post-request fulfilled", () => {
         expect(orderSlice(initialStore, {
                 type: "order/post/fulfilled",

@@ -17,6 +17,9 @@ const orderSlice = createSlice({
     reducers: {},
     extraReducers: builder => {
         builder
+            .addCase(fetchOrder.pending, (state, action) => {
+                return initialState;
+            })
             .addCase(fetchOrder.fulfilled, (state, action) => {
                 return action.payload.order;
             })

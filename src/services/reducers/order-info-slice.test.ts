@@ -1,8 +1,4 @@
-import orderInfoSlice from "./order-info-slice";
-
-const initialStore = {
-    info: null,
-};
+import orderInfoSlice, {initialState} from "./order-info-slice";
 
 const responseApiOrderInfo = {
     "success": true,
@@ -27,7 +23,7 @@ const responseApiOrderInfo = {
 
 describe("Order Info slice", () => {
     test("Get order information fulfilled", () => {
-        expect(orderInfoSlice(initialStore, {
+        expect(orderInfoSlice(initialState, {
                 type: "orderInfo/get/fulfilled",
                 payload: responseApiOrderInfo
             })

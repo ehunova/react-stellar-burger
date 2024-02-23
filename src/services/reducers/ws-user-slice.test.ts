@@ -1,9 +1,4 @@
-import wsUserSlice, {wsUserClose, wsUserError, wsUserOpen, wsUserRequest} from "./ws-user-slice";
-
-const initialStore = {
-    wsConnected: false,
-    orders: []
-};
+import wsUserSlice, {initialState, wsUserClose, wsUserError, wsUserOpen, wsUserRequest} from "./ws-user-slice";
 
 const responseWSUserOrders = {
     "success": true,
@@ -45,23 +40,23 @@ const responseWSUserOrders = {
 
 describe("WS Orders slice", () => {
     test("wsOpen action", () => {
-        expect(wsUserSlice(initialStore, wsUserOpen()))
+        expect(wsUserSlice(initialState, wsUserOpen()))
             .toEqual({
-                ...initialStore,
+                ...initialState,
                 wsConnected: true,
                 error: undefined
             });
     });
     test("wsError action", () => {
-        expect(wsUserSlice(initialStore, wsUserError("error")))
+        expect(wsUserSlice(initialState, wsUserError("error")))
             .toEqual({
-                ...initialStore,
+                ...initialState,
                 wsConnected: false,
                 error: "error"
             });
     });
     test("wsRequest action", () => {
-        expect(wsUserSlice(initialStore, wsUserRequest(responseWSUserOrders)))
+        expect(wsUserSlice(initialState, wsUserRequest(responseWSUserOrders)))
             .toEqual({
                 wsConnected: true,
                 orders: responseWSUserOrders.orders,
@@ -78,6 +73,6 @@ describe("WS Orders slice", () => {
                 wsUserClose()
             )
         )
-            .toEqual(initialStore);
+            .toEqual(initialState);
     });
 })

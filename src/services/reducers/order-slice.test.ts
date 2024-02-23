@@ -1,8 +1,4 @@
-import orderSlice from "./order-slice"
-
-const initialStore = {
-    number: 0,
-};
+import orderSlice, {initialState} from "./order-slice"
 
 const responseApiOrder = {
     "name": "Краторный метеоритный бургер",
@@ -14,14 +10,14 @@ const responseApiOrder = {
 
 describe("Order slice", () => {
     test("Get order number after create order post-request pending", () => {
-        expect(orderSlice(initialStore, {
+        expect(orderSlice(initialState, {
                 type: "order/post/pending"
             })
         )
-            .toEqual(initialStore)
+            .toEqual(initialState)
     })
     test("Get order number after create order post-request fulfilled", () => {
-        expect(orderSlice(initialStore, {
+        expect(orderSlice(initialState, {
                 type: "order/post/fulfilled",
                 payload: responseApiOrder
             })

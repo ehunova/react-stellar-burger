@@ -1,8 +1,4 @@
-import ingredientsSlice from "./ingredients-slice";
-
-const initialStore = {
-    ingredients: [],
-};
+import ingredientsSlice, {initialState} from "./ingredients-slice";
 
 const responseApiIngredientsList = {
     "success": true,
@@ -54,7 +50,7 @@ const responseApiIngredientsList = {
 
 describe("Ingredients slice", () => {
     test("Get ingredients fulfilled", () => {
-        expect(ingredientsSlice(initialStore, {
+        expect(ingredientsSlice(initialState, {
                 type: "ingredients/get/fulfilled",
                 payload: responseApiIngredientsList
             })

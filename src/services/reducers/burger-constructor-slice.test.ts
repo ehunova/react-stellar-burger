@@ -1,14 +1,9 @@
 import burgerConstructorSlice, {
-    addFilling, clearConstructor,
+    addFilling, clearConstructor, initialState,
     moveFillingElement,
     removeFillingElement,
     setBun
 } from "./burger-constructor-slice";
-
-const initialStore = {
-    bun: null,
-    filling: [],
-};
 
 const bun = {
     _id: '60666c42cc7b410027a1a9b1',
@@ -57,16 +52,16 @@ const secondFillingIngredient = {
 
 describe("Burger Constructor slice", () => {
     test("Set Bun", () => {
-        expect(burgerConstructorSlice(initialStore, setBun(bun)))
+        expect(burgerConstructorSlice(initialState, setBun(bun)))
             .toEqual({
-                ...initialStore,
+                ...initialState,
                 bun: bun,
             });
     });
     test("Add Filling", () => {
-        expect(burgerConstructorSlice(initialStore, addFilling(firstFillingIngredient)))
+        expect(burgerConstructorSlice(initialState, addFilling(firstFillingIngredient)))
             .toEqual({
-                ...initialStore,
+                ...initialState,
                 filling: [
                     firstFillingIngredient
                 ]
@@ -76,7 +71,7 @@ describe("Burger Constructor slice", () => {
         expect(
             burgerConstructorSlice(
                 {
-                    ...initialStore,
+                    ...initialState,
                     filling: [
                         firstFillingIngredient
                     ]
@@ -85,7 +80,7 @@ describe("Burger Constructor slice", () => {
             )
         )
             .toEqual({
-                ...initialStore,
+                ...initialState,
                 filling: [
                     firstFillingIngredient,
                     secondFillingIngredient
@@ -96,7 +91,7 @@ describe("Burger Constructor slice", () => {
         expect(
             burgerConstructorSlice(
                 {
-                    ...initialStore,
+                    ...initialState,
                     filling: [
                         firstFillingIngredient,
                         secondFillingIngredient
@@ -110,7 +105,7 @@ describe("Burger Constructor slice", () => {
             )
         )
             .toEqual({
-                ...initialStore,
+                ...initialState,
                 filling: [
                     secondFillingIngredient,
                     firstFillingIngredient
@@ -121,7 +116,7 @@ describe("Burger Constructor slice", () => {
         expect(
             burgerConstructorSlice(
                 {
-                    ...initialStore,
+                    ...initialState,
                     filling: [
                         firstFillingIngredient,
                         secondFillingIngredient
@@ -131,7 +126,7 @@ describe("Burger Constructor slice", () => {
             )
         )
             .toEqual({
-                ...initialStore,
+                ...initialState,
                 filling: [
                     firstFillingIngredient
                 ]
@@ -140,12 +135,12 @@ describe("Burger Constructor slice", () => {
     test("Clear Constructor", () => {
         expect(
             burgerConstructorSlice(
-                {...initialStore, filling: [firstFillingIngredient]},
+                {...initialState, filling: [firstFillingIngredient]},
                 clearConstructor()
             )
         )
             .toEqual({
-                ...initialStore
+                ...initialState
             });
     });
 })

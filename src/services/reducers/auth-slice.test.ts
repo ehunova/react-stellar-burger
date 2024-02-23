@@ -1,9 +1,4 @@
-import authSlice from "./auth-slice";
-
-const initialStore = {
-    user: null,
-    isAuthChecked: true,
-};
+import authSlice, {initialState} from "./auth-slice";
 
 const responseApiRegistration = {
     "success": true,
@@ -43,31 +38,31 @@ const responseApiUpdateUserInfo = {
 
 describe("Auth slice", () => {
     test("User registration fulfilled", () => {
-        expect(authSlice(initialStore, {
+        expect(authSlice(initialState, {
                 type: "registration/post/fulfilled",
                 payload: responseApiRegistration
             })
         )
             .toEqual({
-                ...initialStore,
+                ...initialState,
                 user: responseApiRegistration.user,
             })
     })
     test("User Log in fulfilled", () => {
-        expect(authSlice(initialStore, {
+        expect(authSlice(initialState, {
                 type: "login/post/fulfilled",
                 payload: responseApiLogin
             })
         )
             .toEqual({
-                ...initialStore,
+                ...initialState,
                 user: responseApiLogin.user,
             })
     })
     test("Get User information pending", () => {
         expect(authSlice(
                 {
-                    ...initialStore,
+                    ...initialState,
                     user: responseApiLogin.user,
                 },
                 {
@@ -83,7 +78,7 @@ describe("Auth slice", () => {
     test("Get User information fulfilled", () => {
         expect(authSlice(
                 {
-                    ...initialStore,
+                    ...initialState,
                     user: responseApiLogin.user,
                 },
                 {
@@ -100,7 +95,7 @@ describe("Auth slice", () => {
     test("Get User information rejected", () => {
         expect(authSlice(
                 {
-                    ...initialStore,
+                    ...initialState,
                     user: responseApiLogin.user,
                 },
                 {
@@ -108,7 +103,7 @@ describe("Auth slice", () => {
                 }
             )
         )
-            .toEqual(initialStore)
+            .toEqual(initialState)
     })
     test("Update User information fulfilled", () => {
         expect(authSlice(
@@ -138,7 +133,7 @@ describe("Auth slice", () => {
                 }
             )
         )
-            .toEqual(initialStore)
+            .toEqual(initialState)
     })
 })
 

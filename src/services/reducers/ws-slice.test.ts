@@ -1,11 +1,4 @@
-import wsSlice, {wsClose, wsError, wsOpen, wsRequest} from "./ws-slice";
-
-const initialStore = {
-    wsConnected: false,
-    orders: [],
-    total: null,
-    totalToday: null
-};
+import wsSlice, {initialState, wsClose, wsError, wsOpen, wsRequest} from "./ws-slice";
 
 const responseWSOrders = {
     "success": true,
@@ -47,23 +40,23 @@ const responseWSOrders = {
 
 describe("WS Orders slice", () => {
     test("wsOpen action", () => {
-        expect(wsSlice(initialStore, wsOpen()))
+        expect(wsSlice(initialState, wsOpen()))
             .toEqual({
-                ...initialStore,
+                ...initialState,
                 wsConnected: true,
                 error: undefined,
             });
     });
     test("wsError action", () => {
-        expect(wsSlice(initialStore, wsError("error")))
+        expect(wsSlice(initialState, wsError("error")))
             .toEqual({
-                ...initialStore,
+                ...initialState,
                 wsConnected: false,
                 error: "error",
             });
     });
     test("wsRequest action", () => {
-        expect(wsSlice(initialStore, wsRequest(responseWSOrders)))
+        expect(wsSlice(initialState, wsRequest(responseWSOrders)))
             .toEqual({
                 wsConnected: true,
                 orders: responseWSOrders.orders,
@@ -84,6 +77,6 @@ describe("WS Orders slice", () => {
                 wsClose()
             )
         )
-            .toEqual(initialStore);
+            .toEqual(initialState);
     });
 })

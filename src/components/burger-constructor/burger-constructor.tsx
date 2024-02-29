@@ -15,6 +15,7 @@ import {
 import {fetchOrder} from "../../services/reducers/order-slice";
 import {Location, useLocation, useNavigate} from "react-router-dom";
 import {TFromLocation, TIngredient, TIngredientConstructor, useAppDispatch, useAppSelector} from "../../utils/types";
+import {Tooltip} from "react-tooltip";
 
 type TCollectedProps = { isDropIngredient: boolean; };
 
@@ -76,6 +77,8 @@ export default function BurgerConstructor() {
         dispatch(clearConstructor());
     }
 
+    const isAmptyConstructor = !burgerConstructor.bun && burgerConstructor.filling.length === 0;
+
     return (
         <section className={clsx(styles.section, "mt-25 ml-4")}>
             <div className={clsx(styles.container, isDropIngredient ? styles.dragging : '')}
@@ -90,6 +93,12 @@ export default function BurgerConstructor() {
                     }
                 </div>
                 <div className={styles.main}>
+                    {
+                        isAmptyConstructor &&
+                        <p className={clsx(styles.textClue, "text text_type_main-small text_color_inactive")}>
+                            Перетащи ингредиент, чтобы собрать свой космический бургер
+                        </p>
+                    }
                     {
                         burgerConstructor.filling.map((ingredient, index) => {
                             return (<IngredientConstructor
@@ -118,7 +127,7 @@ export default function BurgerConstructor() {
                     <p className="text text_type_digits-medium">{total}</p>
                     <CurrencyIcon type="primary"/>
                 </div>
-                <div>
+                <div data-tooltip-id="order-button">
                     <Button htmlType="button"
                             disabled={!burgerConstructor.bun}
                             type="primary"
@@ -128,6 +137,12 @@ export default function BurgerConstructor() {
                         Оформить заказ
                     </Button>
                 </div>
+                {!burgerConstructor.bun &&
+                    <Tooltip className={"text text_type_main-small"}
+                             id={"order-button"}
+                             content={"Не хватает булочки"}
+                    />
+                }
             </div>
         </section>
     )

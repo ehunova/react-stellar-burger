@@ -1,7 +1,7 @@
 .header {
     background: #1C1C21;
     width: 100%;
-    height: 88px;
+    /*height: 88px;*/
     display: flex;
     justify-content: center;
     align-items: center;
@@ -30,8 +30,8 @@
     display: flex;
     margin: 0 auto;
     max-width: 1280px;
-    height: calc(100vh - 88px); /*88px - высота header*/
-    overflow-y: hidden;
+    justify-content: space-between;
+    /*height: calc(100vh - 88px); !*88px - высота header*!*/
     width: 100%;
 }
 

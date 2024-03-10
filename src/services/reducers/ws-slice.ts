@@ -9,7 +9,7 @@ type TInitialState = {
     error?: Event;
 }
 
-const initialState: TInitialState = {
+export const initialState: TInitialState = {
     wsConnected: false,
     orders: [],
     total: null,

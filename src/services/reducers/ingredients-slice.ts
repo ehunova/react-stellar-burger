@@ -2,7 +2,7 @@ import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {getIngredientsList} from "../../utils/api";
 import {TIngredient} from "../../utils/types";
 
-const initialState: {ingredients: TIngredient[]} = {
+export const initialState: {ingredients: TIngredient[]} = {
     ingredients: [],
 };
 

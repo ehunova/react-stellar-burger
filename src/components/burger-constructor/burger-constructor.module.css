@@ -4,10 +4,11 @@
 }
 
 .container {
-    height: 656px;
+    height: calc(100vh - 350px);
     display: flex;
     flex-direction: column;
     gap: 16px;
+    position: relative;
 }
 
 .dragging {
@@ -16,9 +17,6 @@
         0 4px 32px rgba(51, 51, 255, 0.15),
         0 0 8px rgba(51, 51, 255, 0.15),
         0 0 16px rgba(51, 51, 255, 0.15);
-}
-
-.bun {
 }
 
 .main {
@@ -55,4 +53,13 @@
 .totalPrice svg {
     width: 36px;
     height: 36px;
+}
+
+.textClue {
+    text-align: center;
+    max-width: 400px;
+    position: absolute;
+    top: 50%;
+    align-self: center;
+    opacity: .4;
 }

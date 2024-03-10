@@ -5,9 +5,9 @@
 таких, как: CSS-Module, JSX, React. Полное описание проекта допишем по завершению! Оставайтесь с нами :)
 
 ## Демо
-Проект размещен на сервере Github и доступен для просмотра по ссылке https://ehunova.github.io/react-stellar-burger/
+Проект размещен на сервере Github и доступен для просмотра по ссылке: https://ehunova.github.io/react-stellar-burger/
 
-![Описание картинки](/src/images/screen-page.png "Главная страница проекта")
+![Главная страница проекта](/screen-page.png)
 
 ## Описание проекта
 ### Цель
